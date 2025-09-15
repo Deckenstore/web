@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gap Web - Affordable Website Development</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header id="hero" class="is-visible">
+        <div class="container">
+            <h1>Gap Web</h1>
+            <p>Your Ideas, Our Code. Affordable Websites.</p>
+            <a href="#contact" class="btn get-form-btn">Get a Free Quote</a>
+        </div>
+        </header>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Gap Web</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="order.html">Order</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms and Conditions</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle">
+                ☰
+            </button>
+        </div>
+    </nav>
+</header>
+    </header>
+
+    <section id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <p class="subtitle">We specialize in building high-quality, professional websites at unbeatable prices.</p>
+            <div class="service-grid">
+                <div class="service-item">
+                    <img src="https://via.placeholder.com/100" alt="Website Icon">
+                    <h3>Business Websites</h3>
+                    <p>Professional websites to showcase your business and attract new customers.</p>
+                </div>
+                <div class="service-item">
+                    <img src="https://via.placeholder.com/100" alt="E-commerce Icon">
+                    <h3>E-commerce Stores</h3>
+                    <p>Build an online store to sell your products easily and securely.</p>
+                </div>
+                <div class="service-item">
+                    <img src="https://via.placeholder.com/100" alt="Blog Icon">
+                    <h3>Personal Blogs</h3>
+                    <p>Share your thoughts and connect with your audience through a beautiful blog.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<section id="pricing">
+    <div class="container">
+        <h2>Our Plans</h2>
+        <p class="subtitle">Choose the perfect plan for your project. All plans include professional development and support.</p>
+        <div class="price-grid">
+            <div class="plan" data-price="1100" data-plan="starter">
+                <h3>Starter</h3>
+                <div class="price">₹1100 /year</div>
+                <ul>
+                    <li>Single Page Website</li>
+                    <li>Basic Contact Form</li>
+                    <li>Mobile-Friendly Design</li>
+                    <li>1 Revision</li>
+                </ul>
+                <p class="small-note">*This is a without domain website; domain is not included.</p>
+                <a href="#contact" class="btn select-plan-btn" data-plan="starter" data-price="1100">Choose Plan</a>
+            </div>
+            <div class="plan" data-price="1999" data-plan="business">
+                <h3>Business</h3>
+                <div class="price">₹1999 /year</div>
+                <ul>
+                    <li>Up to 5 Pages</li>
+                    <li>Advanced Forms</li>
+                    <li>SEO Optimization</li>
+                    <li>Social Media Integration</li>
+                </ul>
+                <p class="small-note">*This is a without domain website; domain is not included.</p>
+                <a href="#contact" class="btn select-plan-btn" data-plan="business" data-price="1999">Choose Plan</a>
+            </div>
+            <div class="plan" data-price="2999" data-plan="ecommerce">
+                <h3>E-commerce</h3>
+                <div class="price">₹2999 /year</div>
+                <ul>
+                    <li>Online Payment Gateway</li>
+                    <li>Product Listings</li>
+                    <li>User Login System</li>
+                    <li>Full Support</li>
+                </ul>
+                <p class="small-note">*This is a without domain website; domain is not included.</p>
+                <a href="#contact" class="btn select-plan-btn" data-plan="ecommerce" data-price="2999">Choose Plan</a>
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+    <section id="contact">
+        <div class="container">
+            <h2>Get a Free Quote</h2>
+            <p class="subtitle">Tell us about your project and we'll get back to you with a personalized quote.</p>
+            <div class="form-container" id="formContainer">
+                <form id="quoteForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsappNumber">WhatsApp Number</label>
+                        <input type="tel" id="whatsappNumber" name="whatsappNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="planSelect">Select a Plan</label>
+                        <select id="planSelect" name="plan" required>
+                            <option value="">Select a plan</option>
+                            <option value="starter" data-price="1100">Starter (₹1100)</option>
+                            <option value="business" data-price="1999">Business (₹1999)</option>
+                            <option value="ecommerce" data-price="2999">E-commerce (₹2999)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="websiteType">Type of Website</label>
+                        <select id="websiteType" name="websiteType" required>
+                            <option value="">Select a type</option>
+                            <option value="Business">Business Website</option>
+                            <option value="E-commerce">E-commerce Store</option>
+                            <option value="Blog">Personal Blog</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Project Description</label>
+                        <textarea id="description" name="description" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" id="proceedBtn" class="btn">Proceed to Payment</button>
+                </form>
+            </div>
+            <a href="#contact" class="btn get-form-btn" id="getFormBtn">Get a Form</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Gap Web. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // JavaScript for scroll-based animations
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        const formContainer = document.getElementById('formContainer');
+        const getFormBtn = document.getElementById('getFormBtn');
+        const selectPlanButtons = document.querySelectorAll('.select-plan-btn');
+
+        // Logic to show form and hide button on click
+        function showFormAndHideButton() {
+            formContainer.style.display = 'block';
+            getFormBtn.classList.add('hidden');
+            document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+        }
+
+        getFormBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            showFormAndHideButton();
+        });
+
+        // Redirect to payment page on form submission
+        const form = document.getElementById('quoteForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevents default form submission
+
+            if (form.checkValidity()) {
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    whatsappNumber: document.getElementById('whatsappNumber').value,
+                    plan: document.getElementById('planSelect').value,
+                    websiteType: document.getElementById('websiteType').value,
+                    description: document.getElementById('description').value,
+                    price: document.getElementById('planSelect').options[document.getElementById('planSelect').selectedIndex].dataset.price,
+                };
+                
+                // Store form data in session storage to pass to the next page
+                sessionStorage.setItem('formData', JSON.stringify(formData));
+                
+                // Redirect to the payment page
+                window.location.href = 'payment.html';
+            } else {
+                form.reportValidity();
+            }
+        });
+
+        // Sync pricing buttons with form select and show form
+        const planSelect = document.getElementById('planSelect');
+        const plans = document.querySelectorAll('.plan');
+        
+        selectPlanButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const planValue = this.dataset.plan;
+                planSelect.value = planValue;
+                
+                plans.forEach(plan => {
+                    if (plan.dataset.plan === planValue) {
+                        plan.classList.add('selected');
+                    } else {
+                        plan.classList.remove('selected');
+                    }
+                });
+                
+                showFormAndHideButton();
+            });
+        });
+        getFormBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    showFormAndHideButton();
+});
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+
+navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+});
+document.addEventListener('click', function(event) {
+    const isClickInsideMenu = navLinks.contains(event.target);
+    const isClickOnToggle = navToggle.contains(event.target);
+
+    // If click is outside the menu and toggle button, hide the menu
+    if (!isClickInsideMenu && !isClickOnToggle) {
+        navLinks.classList.remove('show');
+    }
+});
+    </script>
+    <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/+91 9988720946" target="_blank" class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+</a>
+
+<style>
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    right: 30px;
+    background-color: #25D366;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+.whatsapp-float img {
+    width: 35px;
+    height: 35px;
+}
+</style>
+</body>
+</html>
