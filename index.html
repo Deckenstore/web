@@ -13,18 +13,17 @@
             <h1>Gap Web</h1>
             <p>Your Ideas, Our Code. Affordable Websites.</p>
             <a href="#contact" class="btn get-form-btn">Get a Quote</a>
-            <li><button id="logout-btn">Logout</button></li>
         </div>
         </header>
     <nav class="navbar">
         <div class="container nav-container">
-            <a href="index.html" class="logo">Gap Web</a>
+            <a href="index" class="logo">Gap Web</a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About us</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="terms.html">Terms and Conditions</a></li>
+                <li><a href="index">Home</a></li>
+                <li><a href="services">Services</a></li>
+                <li><a href="about">About us</a></li>
+                <li><a href="contact">Contact</a></li>
+                <li><a href="terms">Terms and Conditions</a></li>
             </ul>
             <button class="nav-toggle" id="navToggle">
                 ☰
@@ -173,40 +172,7 @@
         <div class="container">
             <p>&copy; 2025 Gap Web. All Rights Reserved.</p>
         </div>
-    </footer><!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-analytics-compat.js"></script>
-
-<script>
-  // ✅ Aapka Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDe5yupFQFU81N2bdEInL1uDoSPLYD2ITw",
-    authDomain: "gapweb-e0f1c.firebaseapp.com",
-    projectId: "gapweb-e0f1c",
-    storageBucket: "gapweb-e0f1c.appspot.com",
-    messagingSenderId: "402503345446",
-    appId: "1:402503345446:web:ef55449626bebb67e38de7",
-    measurementId: "G-FW1EKJEPN8"
-  };
-
-  // ✅ Firebase Init
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const analytics = firebase.analytics();
-  
-  // ✅ Logout button
-  document.addEventListener("DOMContentLoaded", () => {
-    const logoutBtn = document.getElementById("logout-btn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", () => {
-        auth.signOut().then(() => {
-          window.location.href = "login.html";
-        });
-      });
-    }
-  });
-</script>
+    </footer>
     
     <script>
         // JavaScript for scroll-based animations
