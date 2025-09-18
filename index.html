@@ -12,7 +12,8 @@
         <div class="container">
             <h1>Gap Web</h1>
             <p>Your Ideas, Our Code. Affordable Websites.</p>
-            <a href="#contact" class="btn get-form-btn">Get a Free Quote</a>
+            <a href="#contact" class="btn get-form-btn">Get a Quote</a>
+            <li><button id="logout-btn">Logout</button></li>
         </div>
         </header>
     <nav class="navbar">
@@ -173,6 +174,41 @@
             <p>&copy; 2025 Gap Web. All Rights Reserved.</p>
         </div>
     </footer>
+    <!-- Firebase Scripts (head ke andar ya body ke end me rakho) -->
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-auth-compat.js"></script>
+
+<script>
+  // ✅ Yahan apna Firebase config paste karein
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // ✅ User state check
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      // Agar login nahi hai → login.html pe bhejo
+      window.location.href = "login.html";
+    }
+  });
+
+  // ✅ Logout button
+  document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        auth.signOut().then(() => {
+          window.location.href = "login.html";
+        });
+      });
+    }
+  });
+</script>
     
     <script>
         // JavaScript for scroll-based animations
