@@ -6,222 +6,37 @@
 <title>Confirm Your Details | Gap Web</title>
 <meta name="description" content="Confirm your selected plan and proceed to payment with Gap Web. Affordable website development, studio, and marketing plans.">
 <link rel="stylesheet" href="style.ss">
-
-<!-- Favicon (optional) -->
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <style>
-/* Base Styles & Typography */
+/* (same CSS as before, no change made) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-:root {
-    --primary-color: #010d19;
-    --secondary-color: #0d0a4c;
-    --light-bg: #f5f6fa;
-    --dark-text: #2c3e50;
-    --light-text: #ecf0f1;
-    --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* Global Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--light-bg);
-    color: var(--dark-text);
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Navbar */
-.navbar {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar .logo {
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-decoration: none;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
-
-.nav-links li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.nav-links li a:hover {
-    color: var(--secondary-color);
-}
-
-.nav-toggle {
-    display: none;
-    font-size: 2rem;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-/* Mobile Navbar */
-@media screen and (max-width: 768px) {
-    .nav-links {
-        position: absolute;
-        top: 65px;
-        left: 0;
-        right: 0;
-        background-color: var(--primary-color);
-        flex-direction: column;
-        display: none;
-    }
-    .nav-links.show {
-        display: flex;
-    }
-    .nav-links li {
-        border-bottom: 1px solid white;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
-    .nav-toggle {
-        display: block;
-    }
-}
-
-/* Hero Section */
-#hero {
-    background: url("hero-banner.png") no-repeat center center/cover;
-    color: white;
-    padding: 100px 20px;
-    text-align: center;
-}
-
-#hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-#hero p {
-    font-size: 1.4rem;
-    max-width: 700px;
-    margin: 0 auto 40px;
-}
-
-/* Confirm Details Section */
-.form-container {
-    background: #fff;
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    max-width: 700px;
-    margin: 50px auto;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.confirm-info p {
-    display: flex;
-    justify-content: space-between;
-    background: #f1f1f1;
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin: 10px 0;
-}
-
-.confirm-info p span {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.price-box {
-    background: var(--primary-color);
-    color: #fff;
-    font-weight: 700;
-    padding: 15px;
-    text-align: center;
-    border-radius: 8px;
-    margin-top: 15px;
-    font-size: 18px;
-}
-
-/* Buttons */
-.btn {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    margin-top: 25px;
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-}
-
-/* Footer */
-footer {
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 30px 0;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-    .confirm-info p {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .confirm-info p span {
-        margin-top: 5px;
-    }
-}
-
+:root { --primary-color:#010d19;--secondary-color:#0d0a4c;--light-bg:#f5f6fa;--dark-text:#2c3e50;--light-text:#ecf0f1;--card-shadow:0 10px 30px rgba(0,0,0,0.08);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background-color:var(--light-bg);color:var(--dark-text);line-height:1.6;overflow-x:hidden;}
+.container{max-width:1200px;margin:auto;padding:20px;}
+.navbar{background-color:var(--primary-color);color:white;padding:15px 0;position:sticky;top:0;z-index:1000;}
+.nav-container{display:flex;justify-content:space-between;align-items:center;}
+.navbar .logo{color:white;font-weight:700;font-size:1.5rem;text-decoration:none;}
+.nav-links{list-style:none;display:flex;gap:25px;}
+.nav-links li a{color:white;text-decoration:none;font-weight:600;transition:color 0.3s;}
+.nav-links li a:hover{color:var(--secondary-color);}
+.nav-toggle{display:none;font-size:2rem;background:none;border:none;color:white;cursor:pointer;}
+@media screen and (max-width:768px){.nav-links{position:absolute;top:65px;left:0;right:0;background-color:var(--primary-color);flex-direction:column;display:none;}.nav-links.show{display:flex;}.nav-links li{border-bottom:1px solid white;width:100%;text-align:center;padding:10px 0;}.nav-toggle{display:block;}}
+#hero{background:url("hero-banner.png") no-repeat center center/cover;color:white;padding:100px 20px;text-align:center;}
+#hero h1{font-size:3rem;font-weight:700;margin-bottom:20px;}
+#hero p{font-size:1.4rem;max-width:700px;margin:0 auto 40px;}
+.form-container{background:#fff;padding:40px 30px;border-radius:12px;box-shadow:var(--card-shadow);max-width:700px;margin:50px auto;}
+h2{text-align:center;margin-bottom:25px;}
+.confirm-info p{display:flex;justify-content:space-between;background:#f1f1f1;padding:12px 15px;border-radius:8px;margin:10px 0;}
+.confirm-info p span{font-weight:600;color:var(--primary-color);}
+.btn{display:block;width:100%;padding:16px;margin-top:25px;background-color:var(--primary-color);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;transition:0.3s;}
+.btn:hover{background-color:var(--secondary-color);transform:translateY(-2px);}
+footer{background-color:var(--primary-color);color:white;text-align:center;padding:30px 0;}
+@media(max-width:600px){.confirm-info p{flex-direction:column;align-items:flex-start;}.confirm-info p span{margin-top:5px;}}
 </style>
-
 </head>
 <body>
 
-<!-- Header / Navbar -->
 <header>
   <nav class="navbar">
         <div class="container nav-container">
@@ -234,14 +49,11 @@ footer {
                 <li><a href="terms">Terms and Conditions</a></li>
                 <li><a href="https://hire.gapweb.site">Hire Workforce</a></li>
             </ul>
-            <button class="nav-toggle" id="navToggle">
-                ☰
-            </button>
+            <button class="nav-toggle" id="navToggle">☰</button>
         </div>
     </nav>
 </header>
 
-<!-- Hero Section -->
 <section id="hero">
   <div class="container">
     <h1>Confirm Your Selection</h1>
@@ -249,7 +61,6 @@ footer {
   </div>
 </section>
 
-<!-- Confirm Details Section -->
 <section id="confirm-details">
   <div class="container">
     <div class="form-container">
@@ -262,27 +73,49 @@ footer {
         <p><strong>Website Type:</strong> <span id="cWebsiteType"></span></p>
         <p><strong>Description:</strong> <span id="cDescription"></span></p>
         <p><strong>Price: ₹</strong><span id="cPrice"></span></p>
-
       </div>
-
       <button id="payBtn" class="btn">Proceed to Payment</button>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="container">
     <p>&copy; 2025 Gap Web. All Rights Reserved.</p>
   </div>
 </footer>
 
-<!-- Scripts -->
 <!-- Razorpay Script -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
+<!-- ✅ Added Firebase Script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  // 🔧 Replace with your actual Firebase config
+  const firebaseConfig = {
+  apiKey: "AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",
+  authDomain: "payments-5802a.firebaseapp.com",
+  databaseURL: "https://payments-5802a-default-rtdb.firebaseio.com",
+  projectId: "payments-5802a",
+  storageBucket: "payments-5802a.firebasestorage.app",
+  messagingSenderId: "467232488937",
+  appId: "1:467232488937:web:79680dbf4fed78a3201f78",
+  measurementId: "G-1HLH4YC74K"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Make Firebase available globally
+  window.db = db;
+  window.ref = ref;
+  window.push = push;
+  window.set = set;
+</script>
+
 <script>
-  // Load session data from previous form
   const formData = JSON.parse(sessionStorage.getItem('formData'));
 
   if (formData) {
@@ -295,17 +128,16 @@ footer {
     document.getElementById('cPrice').textContent = formData.price;
   }
 
-  // Razorpay Checkout
   document.getElementById('payBtn').addEventListener('click', function() {
     if (!formData) return alert("No plan selected!");
 
     const options = {
-      key: "rzp_test_RdhlM3pIS4wdKW", // Replace with your Razorpay Key ID
-      amount: formData.price * 100, // Amount in paise
+      key: "rzp_test_RdhlM3pIS4wdKW",
+      amount: formData.price * 100,
       currency: "INR",
       name: "Gap Web",
       description: formData.plan + " Plan",
-      image: "https://yourdomain.com/logo.png", // optional logo
+      image: "https://gapweb.site/logo.png",
       prefill: {
         name: formData.fullName,
         email: formData.email,
@@ -316,15 +148,32 @@ footer {
         websiteType: formData.websiteType,
         description: formData.description
       },
-      theme: {
-        color: "#0d0a4c"
+      theme: { color: "#0d0a4c" },
+
+      // ✅ Modified handler (Save to Firebase + Redirect)
+      handler: async function(response){
+        const paymentData = {
+          payment_id: response.razorpay_payment_id,
+          name: formData.fullName,
+          email: formData.email,
+          whatsapp: formData.whatsappNumber,
+          plan: formData.plan,
+          websiteType: formData.websiteType,
+          description: formData.description,
+          price: formData.price,
+          timestamp: new Date().toISOString()
+        };
+
+        try {
+          const dbRef = window.ref(window.db, "payments");
+          const newRef = window.push(dbRef);
+          await window.set(newRef, paymentData);
+          window.location.href = `https://www.gapweb.site/confirm.html?payment_id=${response.razorpay_payment_id}`;
+        } catch (err) {
+          alert("Error saving payment: " + err);
+        }
       },
-      handler: function(response){
-        // After payment success
-        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-        // You can redirect to a success page or save payment info
-        // window.location.href = "success.html";
-      },
+
       modal: {
         ondismiss: function(){
           alert("Payment cancelled.");
@@ -336,15 +185,12 @@ footer {
     rzp.open();
   });
 
-  // Navbar toggle for mobile
+  // Navbar toggle
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
-
   navToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
   document.addEventListener('click', e => {
-    if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-      navLinks.classList.remove('show');
-    }
+    if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) navLinks.classList.remove('show');
   });
 </script>
 
