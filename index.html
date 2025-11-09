@@ -43,15 +43,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header id="hero" class="is-visible">
-        <div class="container">
-            <h1>Gap Web</h1>
-            <p>Your Ideas, Our Code. Affordable Websites.</p>
-            <a href="#contact" class="btn get-form-btn">Get a Quote</a>
-        </div>
-        </header>
-    <nav class="navbar">
+  <nav class="navbar">
         <div class="container nav-container">
             <a href="index" class="logo">Gap Web</a>
             <ul class="nav-links" id="navLinks">
@@ -69,6 +61,20 @@
     </nav>
 </header>
     </header>
+    <section id="hero">
+    <div class="container">
+        <div class="container">
+            <h1>Your Ideas, Our Code. Affordable Websites.</h1>
+            <p></p>
+        </div>
+
+        <!-- ✅ SECOND IMAGE (foreground image) -->
+        <img src="foreimage.png" alt="web development" class="hero-side-img">
+
+    </div>
+</section>
+
+  
 
     <section id="services">
         <div class="container">
@@ -76,89 +82,127 @@
             <p class="subtitle">We specialize in building high-quality, professional websites at unbeatable prices.</p>
             <div class="service-grid">
                 <div class="service-item">
-                    <img src="https://via.placeholder.com/100" alt="Website Icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/753/753113.png" alt="Website Icon">
                     <h3>Business Websites</h3>
                     <p>Professional websites to showcase your business and attract new customers.</p>
                 </div>
                 <div class="service-item">
-                    <img src="https://via.placeholder.com/100" alt="E-commerce Icon">
+                    <img src="https://images.icon-icons.com/3560/PNG/512/online_store_ecommerce_website_shopping_marketplace_icon_225202.png" alt="E-commerce Icon">
                     <h3>E-commerce Stores</h3>
                     <p>Build an online store to sell your products easily and securely.</p>
                 </div>
                 <div class="service-item">
-                    <img src="https://via.placeholder.com/100" alt="Blog Icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/10026/10026257.png" alt="Blog Icon">
                     <h3>Personal Blogs</h3>
                     <p>Share your thoughts and connect with your audience through a beautiful blog.</p>
                 </div>
             </div>
         </div>
     </section>
-<section id="pricing">
-    <div class="container">
-        <h2>Our Plans</h2>
-        <p class="subtitle">Choose the perfect plan for your project. All plans include professional development and support.</p>
-        <div class="price-grid">
-            <div class="plan" data-price="1100" data-plan="starter">
-                <h3>Starter</h3>
-                <div class="price">₹1100 /year</div>
-                <ul>
-                    <li>Single Page Website</li>
+<div class="container">
+  <h2>Select Category</h2>
+  <div class="category-bar">
+    <button class="category-btn active" data-category="website">Website Plans</button>
+    <button class="category-btn" data-category="studio">Studio Plans</button>
+    <button class="category-btn" data-category="marketing">Marketing Plans</button>
+  </div>
+
+  <!-- Website Plans -->
+<div class="plans-wrapper active" id="website">
+  <div class="plan-card">
+    <h3>Starter</h3>
+    <p class="price">₹1100 <span>/year</span></p>
+    <ul>
+      <li>Single Page Website</li>
                     <li>Basic Contact Form</li>
                     <li>Mobile-Friendly Design</li>
                     <li>1 Revision</li>
                     <li>Perfect for Students & Small Shops</li>
-                </ul>
-                <p class="small-note">*This is a without domain website; domain is not included.</p>
-                <a href="#contact" class="btn select-plan-btn" data-plan="starter" data-price="1100">Choose Plan</a>
-            </div>
-            <div class="plan" data-price="1999" data-plan="business">
-                <h3>Business</h3>
-                <div class="price">₹1999 /year</div>
-                <ul>
-                    <li>Up to 5 Pages</li>
+    </ul>
+    <p class="small-note">*This is a without domain website; domain is not included.</p>
+    <a href="#contact" class="btn select-plan-btn" data-plan="starter" data-price="1100">Choose Plan</a>
+  </div>
+
+  <div class="plan-card">
+    <h3>Business</h3>
+    <p class="price">₹1999 <span>/year</span></p>
+    <ul>
+      <li>Up to 5 Pages</li>
                     <li>Advanced Forms</li>
                     <li>SEO Optimization</li>
                     <li>Social Media Integration</li>
                     <li>3 Revision</li>
                     <li>Best for Growing Businesses</li>
-                </ul>
-                <p class="small-note">*This is a without domain website; domain is not included.</p>
-                <a href="#contact" class="btn select-plan-btn" data-plan="business" data-price="1999">Choose Plan</a>
-            </div>
-            <div class="plan" data-price="2999" data-plan="ecommerce">
-                <h3>E-commerce</h3>
-                <div class="price">₹2999 /year</div>
-                <ul>
-                    <li>Online Payment Gateway</li>
+    </ul>
+    <p class="small-note">*This is a without domain website; domain is not included.</p>
+    <a href="#contact" class="btn select-plan-btn" data-plan="business" data-price="1999">Choose Plan</a>
+  </div>
+
+  <div class="plan-card popular">
+    <span class="badge">Popular</span>
+    <h3>E-commerce</h3>
+    <p class="price">₹2999 <span>/year</span></p>
+    <ul>
+      <li>Online Payment Gateway</li>
                     <li>Product Listings</li>
                     <li>User Login System</li>
                     <li>Full Support</li>
                     <li>limited Revision</li>
                     <li>Sell Online with Ease</li>
-                </ul>
-                <p class="small-note">*This is a without domain website; domain is not included.</p>
-                <a href="#contact" class="btn select-plan-btn" data-plan="ecommerce" data-price="2999">Choose Plan</a>
-            </div>
-            <div class="plan" data-plan="custom">
-    <h3>Custom Plan</h3>
-    <div class="price">Starting ₹custom</div>
-    <ul>
-        <li>Tell us your unique requirements</li>
-        <li>Get a personalized quote</li>
-        <li>Best for special/custom projects</li>
-        <li>Priority Support</li>
     </ul>
-    <p class="small-note">We'll contact you with a custom proposal.</p>
-    <a 
-      href="mailto:gapwebinfo@gmail.com?subject=Custom%20Plan%20Request&body=Hi%20Gap%20Web%2C%0A%0AI%20would%20like%20to%20request%20a%20custom%20website%20plan.%20Here%20are%20my%20requirements%3A%0A%0A-%20Website%20Type%3A%20%0A-%20Features%20Needed%3A%20%0A-%20Budget%3A%20%0A%0ARegards%2C%0A[Your%20Name]"
-      class="btn"
-    >
-      Request via Email
-    </a>
+    <p class="small-note">*This is a without domain website; domain is not included.</p>
+    <a href="#contact" class="btn select-plan-btn" data-plan="ecommerce" data-price="2999">Choose Plan</a>
+  </div>
 </div>
-        </div>
-    </div>
-</section>
+
+<!-- Studio Plans -->
+<div class="plans-wrapper" id="studio">
+  <div class="plan-card">
+    <h3>Basic</h3>
+    <p class="price">₹1500 <span>/project</span></p>
+    <ul>
+      <li>Photo Shoot</li>
+      <li>Basic Editing</li>
+    </ul>
+    <a href="#contact" class="btn select-plan-btn" data-plan="basic-studio" data-price="1500">Choose Plan</a>
+  </div>
+
+  <div class="plan-card">
+    <h3>Pro</h3>
+    <p class="price">₹2500 <span>/project</span></p>
+    <ul>
+      <li>Video + Editing</li>
+      <li>Color Grading</li>
+    </ul>
+    <a href="#contact" class="btn select-plan-btn" data-plan="pro-studio" data-price="2500">Choose Plan</a>
+  </div>
+</div>
+
+<!-- Marketing Plans -->
+<div class="plans-wrapper" id="marketing">
+  <div class="plan-card">
+    <h3>Social Media</h3>
+    <p class="price">₹999 <span>/month</span></p>
+    <ul>
+      <li>4 Posts Weekly</li>
+      <li>Hashtag Research</li>
+    </ul>
+    <a href="#contact" class="btn select-plan-btn" data-plan="social-media" data-price="999">Choose Plan</a>
+  </div>
+
+  <div class="plan-card">
+    <h3>Paid Ads</h3>
+    <p class="price">₹3000 <span>/month</span></p>
+    <ul>
+      <li>Ad Campaigns</li>
+      <li>Lead Generation</li>
+    </ul>
+    <a href="#contact" class="btn select-plan-btn" data-plan="paid-ads" data-price="3000">Choose Plan</a>
+  </div>
+</div>
+
+
+</div>
   
 
     <section id="contact">
@@ -186,6 +230,10 @@
                             <option value="starter" data-price="1100">Starter (₹1100)</option>
                             <option value="business" data-price="1999">Business (₹1999)</option>
                             <option value="ecommerce" data-price="2999">E-commerce (₹2999)</option>
+                            <option value="basic-studio" data-price="1500">Basic (₹1500)</option>
+                            <option value="pro-studio" data-price="₹2500">Pro (₹2500)</option>
+                            <option value="social-media" data-price="₹999">Social Media (₹999)</option>
+                            <option value="paid-ads" data-price="₹3000">Pro (₹3000)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -195,6 +243,9 @@
                             <option value="Business">Business Website</option>
                             <option value="E-commerce">E-commerce Store</option>
                             <option value="Blog">Personal Blog</option>
+                            <option value="Portfolio">Portfolio Websites</option>
+                            <option value="Web Applications">Custom Web Applications</option>
+                            <option value="Social Media Handling">Social Media Handling</option>
                             <option value="Other">Other</option>
                         </select>
                     </div>
@@ -216,103 +267,123 @@
         </div>
     </footer>
     
-    <script>
-        // JavaScript for scroll-based animations
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        const formContainer = document.getElementById('formContainer');
-        const getFormBtn = document.getElementById('getFormBtn');
-        const selectPlanButtons = document.querySelectorAll('.select-plan-btn');
-
-        // Logic to show form and hide button on click
-        function showFormAndHideButton() {
-            formContainer.style.display = 'block';
-            getFormBtn.classList.add('hidden');
-            document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
-        }
-
-        getFormBtn.addEventListener('click', function(event) {
-            event.preventDefault();
-            showFormAndHideButton();
-        });
-
-        // Redirect to payment page on form submission
-        const form = document.getElementById('quoteForm');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevents default form submission
-
-            if (form.checkValidity()) {
-                const formData = {
-                    fullName: document.getElementById('fullName').value,
-                    email: document.getElementById('email').value,
-                    whatsappNumber: document.getElementById('whatsappNumber').value,
-                    plan: document.getElementById('planSelect').value,
-                    websiteType: document.getElementById('websiteType').value,
-                    description: document.getElementById('description').value,
-                    price: document.getElementById('planSelect').options[document.getElementById('planSelect').selectedIndex].dataset.price,
-                };
-                
-                // Store form data in session storage to pass to the next page
-                sessionStorage.setItem('formData', JSON.stringify(formData));
-                
-                // Redirect to the payment page
-                window.location.href = 'payment.html';
-            } else {
-                form.reportValidity();
+<script>
+    // ================= Scroll-based animations =================
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
             }
         });
+    }, { threshold: 0.2 });
 
-        // Sync pricing buttons with form select and show form
-        const planSelect = document.getElementById('planSelect');
-        const plans = document.querySelectorAll('.plan');
-        
-        selectPlanButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                const planValue = this.dataset.plan;
-                planSelect.value = planValue;
-                
-                plans.forEach(plan => {
-                    if (plan.dataset.plan === planValue) {
-                        plan.classList.add('selected');
-                    } else {
-                        plan.classList.remove('selected');
-                    }
-                });
-                
-                showFormAndHideButton();
-            });
-        });
-        getFormBtn.addEventListener('click', function(event) {
-    event.preventDefault();
-    showFormAndHideButton();
-});
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
 
-navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-});
-document.addEventListener('click', function(event) {
-    const isClickInsideMenu = navLinks.contains(event.target);
-    const isClickOnToggle = navToggle.contains(event.target);
+    // ================= Form & Plan Selection =================
+    const formContainer = document.getElementById('formContainer');
+    const getFormBtn = document.getElementById('getFormBtn');
+    const selectPlanButtons = document.querySelectorAll('.select-plan-btn');
+    const planSelect = document.getElementById('planSelect');
+    const plans = document.querySelectorAll('.plan');
 
-    // If click is outside the menu and toggle button, hide the menu
-    if (!isClickInsideMenu && !isClickOnToggle) {
-        navLinks.classList.remove('show');
+    // Show form and hide "Get Form" button
+    function showFormAndHideButton() {
+        formContainer.style.display = 'block';
+        getFormBtn.classList.add('hidden');
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
     }
-});
-    </script>
+
+    getFormBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        showFormAndHideButton();
+    });
+
+    // Clicking on plan card buttons
+    selectPlanButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            const planValue = this.dataset.plan;
+            planSelect.value = planValue;
+
+            plans.forEach(plan => {
+                if (plan.dataset.plan === planValue) {
+                    plan.classList.add('selected');
+                } else {
+                    plan.classList.remove('selected');
+                }
+            });
+
+            showFormAndHideButton();
+        });
+    });
+
+    // ================= Form Submission =================
+    const form = document.getElementById('quoteForm');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        if (form.checkValidity()) {
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                whatsappNumber: document.getElementById('whatsappNumber').value,
+                plan: document.getElementById('planSelect').value,
+                websiteType: document.getElementById('websiteType').value,
+                description: document.getElementById('description').value,
+                price: document.getElementById('planSelect').options[document.getElementById('planSelect').selectedIndex].dataset.price,
+            };
+
+            // Store form data in session storage
+            sessionStorage.setItem('formData', JSON.stringify(formData));
+
+            // Redirect to confirm page
+            window.location.href = 'confirm.html';
+        } else {
+            form.reportValidity();
+        }
+    });
+
+    // ================= Navigation Toggle =================
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(event) {
+        const isClickInsideMenu = navLinks.contains(event.target);
+        const isClickOnToggle = navToggle.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickOnToggle) {
+            navLinks.classList.remove('show');
+        }
+    });
+
+    // ================= Category Tabs =================
+    const buttons = document.querySelectorAll('.category-btn');
+    const sections = document.querySelectorAll('.plans-wrapper');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+                sec.style.display = "none";
+            });
+
+            const active = document.getElementById(btn.dataset.category);
+            active.style.display = "flex";
+
+            setTimeout(() => active.classList.add('active'), 10);
+        });
+    });
+</script>
+
     <!-- WhatsApp Floating Button -->
 <a href="https://wa.me/+91 9988720946" target="_blank" class="whatsapp-float">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
@@ -343,6 +414,30 @@ document.addEventListener('click', function(event) {
     height: 35px;
 }
 </style>
+
+<script>
+  const buttons = document.querySelectorAll('.category-btn');
+  const sections = document.querySelectorAll('.plans-wrapper');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      sections.forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.display = "none";
+      });
+
+      const active = document.getElementById(btn.dataset.category);
+      active.style.display = "flex";
+
+      setTimeout(() => active.classList.add('active'), 10);
+    });
+  });
+</script>
+
+
+
 </body>
         </html>
-                                                                       
