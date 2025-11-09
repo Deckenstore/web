@@ -139,7 +139,7 @@ footer{background-color:var(--primary-color);color:white;text-align:center;paddi
 
     const options = {
       key: "rzp_test_RdhlM3pIS4wdKW",
-      amount: formData.price * 100,
+      amount: Number(formData.price) * 100,
       currency: "INR",
       name: "Gap Web",
       description: formData.plan + " Plan",
