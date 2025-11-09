@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed | Gap Web</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+body{font-family:'Poppins',sans-serif;background:#f5f6fa;margin:0;padding:0;color:#2c3e50;}
+.container{max-width:800px;margin:60px auto;background:#fff;padding:40px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.08);}
+h1{text-align:center;color:#0d0a4c;}
+p{text-align:center;font-size:1.1rem;margin-bottom:10px;}
+.details{margin-top:30px;}
+.details p{background:#f1f1f1;padding:12px 15px;border-radius:8px;margin:10px 0;display:flex;justify-content:space-between;}
+.details span{font-weight:600;color:#010d19;}
+footer{text-align:center;padding:20px 0;margin-top:40px;background:#010d19;color:white;}
+.btn{display:block;width:100%;padding:16px;margin-top:25px;background-color:#010d19;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:16px;transition:0.3s;}
+.btn:hover{background-color:#0d0a4c;}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🎉 Thank You for Your Order!</h1>
+  <p>Your payment has been received successfully.</p>
+  <div class="details" id="orderDetails"></div>
+  <button class="btn" onclick="window.location.href='index'">Back to Home</button>
+</div>
+
+<footer>
+  <p>&copy; 2025 Gap Web. All Rights Reserved.</p>
+</footer>
+
+<script>
+  const orderData = JSON.parse(sessionStorage.getItem("orderData"));
+
+  if (orderData) {
+    document.getElementById("orderDetails").innerHTML = `
+      <p><strong>Payment ID:</strong> <span>${orderData.payment_id}</span></p>
+      <p><strong>Name:</strong> <span>${orderData.name}</span></p>
+      <p><strong>Email:</strong> <span>${orderData.email}</span></p>
+      <p><strong>WhatsApp:</strong> <span>${orderData.whatsapp}</span></p>
+      <p><strong>Plan:</strong> <span>${orderData.plan}</span></p>
+      <p><strong>Website Type:</strong> <span>${orderData.websiteType}</span></p>
+      <p><strong>Description:</strong> <span>${orderData.description}</span></p>
+      <p><strong>Amount Paid:</strong> <span>₹${orderData.price}</span></p>
+    `;
+  } else {
+    document.getElementById("orderDetails").innerHTML = `<p>Order details not found.</p>`;
+  }
+</script>
+
+</body>
+</html>
