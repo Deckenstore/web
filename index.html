@@ -446,16 +446,16 @@
     /* ===== Floating CTA Base ===== */
     .cta-container {
       position: fixed;
-      bottom: 25px;
-      right: 25px;
+      bottom: 100px;
+      right: 28px;
       z-index: 999;
     }
 
     .cta-toggle {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       border-radius: 50%;
-      background: #00775f;
+      background: linear-gradient(135deg,#041431,#6a11cb,#041431);
       color: #fff;
       display: flex;
       align-items: center;
@@ -467,8 +467,8 @@
     }
 
     .cta-toggle.rotate {
-      transform: rotate(45deg);
-      background: #004d40;
+      transform: rotate(65deg);
+      background: linear-gradient(135deg,#041431,#6a11cb,#041431);
     }
 
     .cta-buttons {
@@ -477,7 +477,7 @@
       align-items: center;
       position: absolute;
       bottom: 70px;
-      right: 0;
+      right: 13px;
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s ease;
@@ -540,6 +540,249 @@
     });
   </script>
 
+<!-- ai-->
+<style>
+  body { font-family: 'Poppins', sans-serif; margin: 0; background: #f0f2f5; }
+
+  /* ---------- Toggle Button (GAP AI) ---------- */
+  #toggle-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: linear-gradient(135deg,#041431,#6a11cb,#041431);
+    color: #fff;
+    border: none;
+    border-radius: 30%;
+    width: 65px;
+    height: 65px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #toggle-btn:hover { transform: scale(1.1); }
+
+  /* ---------- Chat Popup ---------- */
+  #chat-popup {
+    position: fixed;
+    bottom: 100px;
+    right: 15px;
+    width: 90%;
+    max-width: 360px;
+    background: rgba(30,30,30,0.95);
+    color: #fff;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    z-index: 9998;
+  }
+
+  #chat-header {
+    background: linear-gradient(135deg,#6a11cb,#2575fc);
+    padding: 12px 15px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+  }
+
+  #clear-chat {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #clear-chat:hover { background: rgba(255,255,255,0.4); }
+
+  #chat-body {
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 12px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+  }
+
+  .message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+  .user-msg { background: #4a90e2; align-self: flex-end; border-bottom-right-radius: 5px; }
+  .ai-msg { background: #333; align-self: flex-start; border-bottom-left-radius: 5px; }
+
+  #chat-input-container {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 15px;
+    background: #1a1a1a;
+  }
+  #chat-input {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    background: #2c2c2c;
+  }
+  #chat-input::placeholder { color: #aaa; }
+
+  #suggestions {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 30vh;
+    overflow-y: auto;
+  }
+  .suggestion {
+    background: #444;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+  }
+  .suggestion:hover {
+    background: #6a11cb;
+    transform: translateX(5px);
+  }
+
+  #chat-body::-webkit-scrollbar, #suggestions::-webkit-scrollbar {
+    width: 6px;
+  }
+  #chat-body::-webkit-scrollbar-thumb, #suggestions::-webkit-scrollbar-thumb {
+    background: #6a11cb;
+    border-radius: 3px;
+  }
+
+  /* Mobile adjustments */
+  @media(max-width: 480px){
+    #chat-popup {
+      width: 95%;
+      bottom: 90px;
+      right: 2.5%;
+    }
+    #chat-body {
+      max-height: 45vh;
+    }
+    #suggestions {
+      max-height: 25vh;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Toggle Button -->
+<button id="toggle-btn">GAP AI</button>
+
+<!-- Chat Popup -->
+<div id="chat-popup">
+  <div id="chat-header">
+    Gap Web AI Assistant
+    <button id="clear-chat">🗑️</button>
+  </div>
+  <div id="chat-body"></div>
+  <div id="chat-input-container">
+    <input type="text" id="chat-input" placeholder="Type to search...">
+    <div id="suggestions"></div>
+  </div>
+</div>
+
+<script>
+let websiteQA = [];
+
+// Load JSON
+fetch('gapweb_qa.json')
+  .then(res => res.json())
+  .then(data => websiteQA = data)
+  .catch(err => console.error(err));
+
+const toggleBtn = document.getElementById('toggle-btn');
+const chatPopup = document.getElementById('chat-popup');
+const chatInput = document.getElementById('chat-input');
+const suggestionsDiv = document.getElementById('suggestions');
+const chatBody = document.getElementById('chat-body');
+const clearBtn = document.getElementById('clear-chat');
+
+// Toggle AI Popup
+toggleBtn.addEventListener('click', () => {
+  chatPopup.style.display = chatPopup.style.display === 'flex' ? 'none' : 'flex';
+  chatInput.focus();
+});
+
+// Clear chat with confirmation
+clearBtn.addEventListener('click', () => {
+  if(confirm("Are you sure you want to clear the chat?")) {
+    chatBody.innerHTML = '';
+  }
+});
+
+// Prevent enter key
+chatInput.addEventListener('keydown', e => { if(e.key==="Enter") e.preventDefault(); });
+
+// Show suggestions
+chatInput.addEventListener('input', () => {
+  const val = chatInput.value.toLowerCase();
+  suggestionsDiv.innerHTML = '';
+  if(val.length === 0) return; // Do not show empty input
+  const filtered = websiteQA.filter(item => item.question.toLowerCase().includes(val));
+  filtered.forEach(item => {
+    const div = document.createElement('div');
+    div.textContent = item.question;
+    div.classList.add('suggestion');
+    div.addEventListener('click', () => selectSuggestion(item));
+    suggestionsDiv.appendChild(div);
+  });
+});
+
+// Select suggestion
+function selectSuggestion(item) {
+  const userMsg = document.createElement('div');
+  userMsg.classList.add('message', 'user-msg');
+  userMsg.textContent = item.question;
+  chatBody.appendChild(userMsg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  suggestionsDiv.innerHTML = '';
+  chatInput.value = '';
+
+  const aiMsg = document.createElement('div');
+  aiMsg.classList.add('message', 'ai-msg');
+  aiMsg.textContent = item.answer;
+  chatBody.appendChild(aiMsg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+</script>
+
+</body>
+<!-- ai end-->
 
 </body>
         </html>
