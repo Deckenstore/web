@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard | Firebase Analytics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ===================================================
+   GLOBAL
+=================================================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{display:flex;background:#0d0f11;color:#e6eef5;height:100vh;overflow:hidden}
+button{cursor:pointer;border:none}
+
+/* ===================================================
+   LOGIN PAGE
+=================================================== */
+#loginPage{position:absolute;top:0;left:0;width:100%;height:100%;background:#0d0f11;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:10}
+#loginPage input{padding:12px 15px;margin:8px 0;border-radius:8px;border:none;width:250px}
+#loginPage button{padding:10px 20px;background:#6366f1;color:#fff;border-radius:8px;margin-top:10px;}
+
+/* ===================================================
+   SIDEBAR
+=================================================== */
+.sidebar{
+  width:260px;background:#111315;padding:30px 18px;
+  display:flex;flex-direction:column;border-right:1px solid #1a1c1e
+}
+.sidebar h2{font-size:22px;margin-bottom:25px;font-weight:600;color:#fff}
+.nav-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.nav-links button{
+  padding:14px 18px;border-radius:10px;background:#1a1d20;color:#cfd6dc;
+  font-size:15px;text-align:left;transition:.3s
+}
+.nav-links button.active{background:#6366f1;color:#fff}
+.nav-links button:hover:not(.active){background:#22252a}
+
+/* ===================================================
+   CONTENT AREA
+=================================================== */
+.content{flex:1;padding:35px 40px;overflow-y:auto}
+.header{display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:28px}
+.search input{
+  padding:10px 18px;border-radius:8px;border:none;width:270px;
+  background:#1c1f22;color:#fff
+}
+.export-btn{padding:10px 22px;background:#00b894;color:#fff;border-radius:8px;font-size:14px}
+
+/* ===================================================
+   STATS CARDS
+=================================================== */
+.stat-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;margin:25px 0}
+.stat-card{
+  background:#16191d;padding:22px;border-radius:14px;border:1px solid #23272b;
+  transition:.3s
+}
+.stat-card:hover{transform:translateY(-5px)}
+.stat-title{font-size:15px;color:#b6bcc4;margin-bottom:10px}
+.stat-value{font-size:24px;font-weight:600;margin-bottom:6px}
+.stat-sub{font-size:13px;color:#7a7f85}
+
+/* ===================================================
+   CHART AREA
+=================================================== */
+.chart-area{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.chart-box{
+  background:#16191d;border:1px solid #22252a;border-radius:12px;padding:20px
+}
+.chart-box h3{margin-bottom:15px;font-size:18px}
+
+/* ===================================================
+   PAYMENT CARDS
+=================================================== */
+#paymentsSection{margin-top:30px}
+.card-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;margin-top:20px}
+.card{
+  background:#16191d;padding:18px;border-radius:12px;border:1px solid #23272b;
+  animation:fade .35s ease-in
+}
+@keyframes fade{from{opacity:.3;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.card p{margin-bottom:6px;font-size:14px}
+.status-btns{display:flex;gap:10px;margin-top:12px}
+.btn{padding:8px 12px;border-radius:8px;color:#fff;font-size:13px;width:100%}
+.pending{background:#feb72b}.completed{background:#2ecc71}.delete{background:#ff4757}
+
+</style>
+</head>
+<body>
+
+<!-- ======================= LOGIN PAGE ======================= -->
+<div id="loginPage">
+  <h2>Admin Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email" />
+  <input type="password" id="loginPass" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <p id="loginError" style="color:red;margin-top:10px;"></p>
+</div>
+
+<!-- ===================================================
+   SIDEBAR
+=================================================== -->
+<aside class="sidebar">
+<h2>Admin Panel</h2>
+<ul class="nav-links">
+<li><button data-section="dashboard" class="active">Dashboard</button></li>
+<li><button data-section="new">New Payments</button></li>
+<li><button data-section="pending">Pending</button></li>
+<li><button data-section="completed">Completed</button></li>
+<li><button onclick="logout()" style="margin-top:10px;background:#ff4757;">Logout</button></li>
+</ul>
+</aside>
+
+<!-- ===================================================
+   MAIN CONTENT
+=================================================== -->
+<section class="content">
+
+<div class="header">
+<h1 id="sectionTitle">Dashboard</h1>
+<div class="search"><input type="text" id="searchInput" placeholder="Search payments..."></div>
+<button class="export-btn" id="exportCSV">Export CSV</button>
+</div>
+
+<!-- ========= DASHBOARD SECTION ========= -->
+<div id="dashboardSection">
+<div class="stat-container">
+<div class="stat-card"><p class="stat-title">Total Revenue</p><h2 class="stat-value" id="statRevenue">₹0</h2><p class="stat-sub">This month</p></div>
+<div class="stat-card"><p class="stat-title">Total Payments</p><h2 class="stat-value" id="statCount">0</h2><p class="stat-sub">All time</p></div>
+<div class="stat-card"><p class="stat-title">Completed Conversions</p><h2 class="stat-value" id="statCompleted">0</h2><p class="stat-sub">% Conversion Rate</p></div>
+</div>
+
+<div class="chart-area">
+<div class="chart-box"><h3>Revenue Trends</h3><canvas id="revenueChart"></canvas></div>
+<div class="chart-box"><h3>Payment Status Distribution</h3><canvas id="statusChart"></canvas></div>
+</div>
+</div>
+
+<!-- ========= PAYMENT SECTION ========= -->
+<div id="paymentsSection" style="display:none">
+<h2 class="title"></h2>
+<div class="card-container" id="paymentCards"></div>
+</div>
+
+</section>
+
+<!-- ===================================================
+   FIREBASE
+=================================================== -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script>
+/* ======================= FIREBASE CONFIG ======================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",
+  authDomain: "payments-5802a.firebaseapp.com",
+  databaseURL: "https://payments-5802a-default-rtdb.firebaseio.com",
+  projectId: "payments-5802a",
+  storageBucket: "payments-5802a.appspot.com",
+  messagingSenderId: "467232488937",
+  appId: "1:467232488937:web:79680dbf4fed78a3201f78",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database().ref("payments");
+
+/* ======================= LOGIN CHECK ======================= */
+const loginPage = document.getElementById("loginPage");
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    loginPage.style.display = "none"; // hide login
+    document.querySelector(".sidebar").style.display = "flex";
+    document.querySelector(".content").style.display = "block";
+  } else {
+    loginPage.style.display = "flex"; // show login
+    document.querySelector(".sidebar").style.display = "none";
+    document.querySelector(".content").style.display = "none";
+  }
+});
+
+/* ======================= LOGIN FUNCTION ======================= */
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPass").value;
+  const error = document.getElementById("loginError");
+  error.textContent = "";
+
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(err => { error.textContent = err.message; });
+}
+
+/* ======================= LOGOUT ======================= */
+function logout() {
+  firebase.auth().signOut();
+}
+
+/* ======================= EXISTING DASHBOARD CODE ======================= */
+let paymentData = {};
+let activeSection = "dashboard";
+
+document.querySelectorAll('.nav-links button').forEach(btn =>
+  btn.addEventListener('click', () => switchSection(btn.dataset.section))
+);
+
+function switchSection(section) {
+  activeSection = section.toLowerCase();
+  document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`[data-section="${section}"]`)?.classList.add("active");
+
+  document.getElementById("dashboardSection").style.display =
+    section === "dashboard" ? "block" : "none";
+
+  document.getElementById("paymentsSection").style.display =
+    section !== "dashboard" ? "block" : "none";
+
+  document.getElementById("sectionTitle").textContent =
+    section === "dashboard" ? "Dashboard" : section.toUpperCase() + " Payments";
+
+  if (section !== "dashboard") renderPayments();
+}
+
+db.on("value", snap => {
+  paymentData = snap.val() || {};
+  updateDashboard();
+  renderPayments();
+});
+
+function updateDashboard() {
+  let total = 0, count = 0, completed = 0;
+
+  Object.values(paymentData).forEach(p => {
+    count++;
+    if ((p.status || "new").toLowerCase() === "completed") completed++;
+    total += Number(p.price || 0);
+  });
+
+  document.getElementById("statRevenue").textContent = "₹" + total;
+  document.getElementById("statCount").textContent = count;
+  document.getElementById("statCompleted").textContent =
+    ((completed / count) * 100 || 0).toFixed(1) + "%";
+
+  drawCharts(total, completed, count - completed);
+}
+
+let revenueChart, statusChart;
+
+function drawCharts(total, comp, pending) {
+  if (revenueChart) revenueChart.destroy();
+  if (statusChart) statusChart.destroy();
+
+  revenueChart = new Chart(document.getElementById("revenueChart"), {
+    type: "line",
+    data: { labels: ["Week1","Week2","Week3","Week4"], datasets:[{data:[total*.2,total*.4,total*.7,total],borderWidth:3}]},
+    options:{plugins:{legend:{display:false}}}
+  });
+
+  statusChart = new Chart(document.getElementById("statusChart"),{
+    type:"pie",
+    data:{labels:["Completed","Pending"],datasets:[{data:[comp,pending]}]}
+  });
+}
+
+function renderPayments() {
+  const container = document.getElementById("paymentCards");
+  container.innerHTML = "";
+  Object.keys(paymentData).forEach(key => {
+    const p = paymentData[key];
+    let status = (p.status || "new").toLowerCase();
+    if (status !== activeSection) return;
+
+    const card = document.createElement("div");
+    card.className="card";
+    card.innerHTML = `
+      <p><strong>Name:</strong> ${p.name}</p>
+      <p><strong>Email:</strong> ${p.email}</p>
+      <p><strong>Whatsapp:</strong> ${p.whatsapp}</p>
+      <p><strong>Plan:</strong> ${p.plan}</p>
+      <p><strong>Price:</strong> ₹${p.price}</p>
+      <p><strong>Payment ID:</strong> ${p.payment_id}</p>
+      <div class="status-btns">
+        <button class="btn pending" onclick="updateStatus('${key}','pending')">Pending</button>
+        <button class="btn completed" onclick="updateStatus('${key}','completed')">Complete</button>
+        <button class="btn delete" onclick="deleteEntry('${key}')">Delete</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function updateStatus(id,status){db.child(id).update({status});}
+function deleteEntry(id){if(confirm("Delete this entry?")) db.child(id).remove();}
+document.getElementById("exportCSV").addEventListener("click",()=>{
+  let csv="Name,Email,Plan,Price,PaymentID,Status\n";
+  Object.values(paymentData).forEach(p=>csv+=`${p.name},${p.email},${p.plan},${p.price},${p.payment_id},${p.status}\n`);
+  const a=document.createElement("a");const blob=new Blob([csv],{type:"text/csv"});
+  a.href=URL.createObjectURL(blob);a.download="payments.csv";a.click();
+});
+</script>
+
+</body>
+</html>
