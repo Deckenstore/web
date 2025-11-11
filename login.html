@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gap Web — Login</title>
+<link rel="icon" href="favicon.ico" />
+<style>
+/* =========================
+   Gap Web — Login Styles
+   ========================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+:root{
+  --primary:#0d0a4c;
+  --muted:#6b7280;
+  --accent:#0d6efd;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#07102a 0%, #0d0a4c 60%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  color:white;
+}
+
+.wrapper {
+  width:960px;
+  max-width:95%;
+  display:grid;
+  grid-template-columns: 420px 1fr;
+  gap:26px;
+}
+
+/* left panel */
+.left {
+  background: rgba(255,255,255,0.03);
+  padding:28px;
+  border-radius:14px;
+  color:#fff;
+  min-height:360px;
+}
+.brand {font-weight:700;font-size:24px;margin-bottom:6px}
+.left h1{font-size:20px;margin:8px 0 12px}
+.left p{opacity:0.9;line-height:1.5}
+
+/* right: form card */
+.card {
+  background:#fff;
+  color:#0b1220;
+  border-radius:14px;
+  padding:22px;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.45);
+}
+.card h2{margin:0 0 6px;color:var(--primary)}
+.card .muted{color:var(--muted);font-size:14px;margin-bottom:12px}
+
+.input { width:100%; padding:12px;border-radius:10px;border:1px solid #e7e9ee;margin-bottom:10px;font-size:15px}
+.btn { width:100%; padding:12px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:600;cursor:pointer }
+.link { display:block; text-align:center; margin-top:12px; color:var(--primary); text-decoration:none; font-weight:600 }
+.msg { margin-top:10px;color:#888;font-size:14px;text-align:center }
+
+/* responsive */
+@media(max-width:880px){
+  .wrapper{ grid-template-columns: 1fr; }
+  .left{ order:2 }
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="left">
+    <div class="brand">Gap Web</div>
+    <h1>Welcome back</h1>
+    <p>Login with your email and password to access your Gap Web dashboard. If you purchased earlier, use same email so your plans appear automatically.</p>
+    <p style="margin-top:18px;font-size:13px;opacity:0.9">Need help? Contact us at <b style="color:#fff">support@gapweb.site</b></p>
+  </div>
+
+  <div class="card">
+    <h2>Login to your account</h2>
+    <div class="muted">Enter email and password created during signup</div>
+
+    <input id="email" class="input" type="email" placeholder="Email" />
+    <input id="password" class="input" type="password" placeholder="Password" />
+    <button class="btn" onclick="loginUser()">Login</button>
+
+    <a class="link" href="signup.html">Create an account</a>
+
+    <div id="msg" class="msg"></div>
+  </div>
+</div>
+
+<script type="module">
+/*
+  Login (DB-based) — reads /users and finds matching email+password
+  On success -> stores full user object in sessionStorage then redirects to dashboard.html
+*/
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",
+  authDomain: "payments-5802a.firebaseapp.com",
+  databaseURL: "https://payments-5802a-default-rtdb.firebaseio.com",
+  projectId: "payments-5802a",
+  storageBucket: "payments-5802a.firebasestorage.app",
+  messagingSenderId: "467232488937",
+  appId: "1:467232488937:web:79680dbf4fed78a3201f78"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const _ = id => document.getElementById(id);
+const msg = _("msg");
+
+// helper
+function scrub(s){ return (s||"").toString().trim(); }
+
+window.loginUser = async function(){
+  msg.textContent = "";
+  const email = scrub(_("email").value).toLowerCase();
+  const password = scrub(_("password").value);
+
+  if(!email || !password){
+    msg.textContent = "Please enter both email and password.";
+    return;
+  }
+
+  msg.textContent = "Checking account...";
+  try{
+    const usersSnap = await get(child(ref(db), "users"));
+    if(!usersSnap.exists()){
+      msg.textContent = "No users registered yet. Please sign up.";
+      return;
+    }
+    const users = usersSnap.val();
+    // find user by email
+    let found = null;
+    for(const k in users){
+      const u = users[k];
+      if(u.email && u.email.toLowerCase() === email && u.password === password){
+        // attach key for future updates
+        found = Object.assign({}, u);
+        found._key = k;
+        break;
+      }
+    }
+
+    if(found){
+      // store safe user object in session
+      sessionStorage.setItem("gapweb_user", JSON.stringify(found));
+      msg.style.color = "green";
+      msg.textContent = "Login successful. Redirecting to dashboard...";
+      setTimeout(()=> window.location.href = "dashboard.html", 700);
+    } else {
+      msg.style.color = "#ff6b6b";
+      msg.textContent = "Invalid email or password. Please try again.";
+    }
+  } catch(err){
+    console.error(err);
+    msg.style.color = "#ff6b6b";
+    msg.textContent = "Error during login: " + (err.message || err);
+  }
+};
+</script>
+</body>
+</html>
