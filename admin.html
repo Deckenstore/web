@@ -86,7 +86,7 @@ button{cursor:pointer;border:none}
 .card p{margin-bottom:6px;font-size:14px}
 .status-btns{display:flex;gap:10px;margin-top:12px}
 .btn{padding:8px 12px;border-radius:8px;color:#fff;font-size:13px;width:100%}
-.pending{background:#feb72b}.completed{background:#2ecc71}.delete{background:#ff4757}
+.pending{background:#feb72b}.active{background:#2ecc71}.delete{background:#ff4757}
 
 </style>
 </head>
@@ -110,7 +110,7 @@ button{cursor:pointer;border:none}
 <li><button data-section="dashboard" class="active">Dashboard</button></li>
 <li><button data-section="new">New Payments</button></li>
 <li><button data-section="pending">Pending</button></li>
-<li><button data-section="completed">Completed</button></li>
+<li><button data-section="active">Active</button></li>
 <li><button onclick="logout()" style="margin-top:10px;background:#ff4757;">Logout</button></li>
 </ul>
 </aside>
@@ -131,7 +131,7 @@ button{cursor:pointer;border:none}
 <div class="stat-container">
 <div class="stat-card"><p class="stat-title">Total Revenue</p><h2 class="stat-value" id="statRevenue">₹0</h2><p class="stat-sub">This month</p></div>
 <div class="stat-card"><p class="stat-title">Total Payments</p><h2 class="stat-value" id="statCount">0</h2><p class="stat-sub">All time</p></div>
-<div class="stat-card"><p class="stat-title">Completed Conversions</p><h2 class="stat-value" id="statCompleted">0</h2><p class="stat-sub">% Conversion Rate</p></div>
+<div class="stat-card"><p class="stat-title">Active Conversions</p><h2 class="stat-value" id="statActive">0</h2><p class="stat-sub">% Conversion Rate</p></div>
 </div>
 
 <div class="chart-area">
@@ -173,11 +173,11 @@ const db = firebase.database().ref("payments");
 const loginPage = document.getElementById("loginPage");
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    loginPage.style.display = "none"; // hide login
+    loginPage.style.display = "none";
     document.querySelector(".sidebar").style.display = "flex";
     document.querySelector(".content").style.display = "block";
   } else {
-    loginPage.style.display = "flex"; // show login
+    loginPage.style.display = "flex";
     document.querySelector(".sidebar").style.display = "none";
     document.querySelector(".content").style.display = "none";
   }
@@ -231,25 +231,25 @@ db.on("value", snap => {
 });
 
 function updateDashboard() {
-  let total = 0, count = 0, completed = 0;
+  let total = 0, count = 0, active = 0;
 
   Object.values(paymentData).forEach(p => {
     count++;
-    if ((p.status || "new").toLowerCase() === "completed") completed++;
+    if ((p.status || "new").toLowerCase() === "active") active++;
     total += Number(p.price || 0);
   });
 
   document.getElementById("statRevenue").textContent = "₹" + total;
   document.getElementById("statCount").textContent = count;
-  document.getElementById("statCompleted").textContent =
-    ((completed / count) * 100 || 0).toFixed(1) + "%";
+  document.getElementById("statActive").textContent =
+    ((active / count) * 100 || 0).toFixed(1) + "%";
 
-  drawCharts(total, completed, count - completed);
+  drawCharts(total, active, count - active);
 }
 
 let revenueChart, statusChart;
 
-function drawCharts(total, comp, pending) {
+function drawCharts(total, act, pending) {
   if (revenueChart) revenueChart.destroy();
   if (statusChart) statusChart.destroy();
 
@@ -261,7 +261,7 @@ function drawCharts(total, comp, pending) {
 
   statusChart = new Chart(document.getElementById("statusChart"),{
     type:"pie",
-    data:{labels:["Completed","Pending"],datasets:[{data:[comp,pending]}]}
+    data:{labels:["Active","Pending"],datasets:[{data:[act,pending]}]}
   });
 }
 
@@ -284,7 +284,7 @@ function renderPayments() {
       <p><strong>Payment ID:</strong> ${p.payment_id}</p>
       <div class="status-btns">
         <button class="btn pending" onclick="updateStatus('${key}','pending')">Pending</button>
-        <button class="btn completed" onclick="updateStatus('${key}','completed')">Complete</button>
+        <button class="btn active" onclick="updateStatus('${key}','active')">Active</button>
         <button class="btn delete" onclick="deleteEntry('${key}')">Delete</button>
       </div>
     `;
