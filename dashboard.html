@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gap Web • Client Dashboard</title>
+<link rel="icon" href="favicon.ico">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;transition:0.3s all ease;}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#eef1f8,#dde4fb);min-height:100vh;color:#222;overflow-x:hidden;}
+header{background:#0d0a4c;color:white;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 6px 25px rgba(0,0,0,0.15);}
+header h1{font-size:22px;font-weight:700;}
+header .top-controls{display:flex;align-items:center;gap:14px;}
+header .user-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:50px;cursor:pointer;}
+header .user-chip:hover{background:rgba(255,255,255,0.3);}
+header .user-chip span.avatar{background:#fff;color:#0d0a4c;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
+header button{border:none;border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;}
+.btn-main{background:#fff;color:#0d0a4c;}
+.btn-main:hover{background:#f1f1f1;}
+.container{max-width:1200px;margin:30px auto;padding:20px;}
+.dashboard-grid{display:grid;grid-template-columns:300px 1fr;gap:24px;}
+.card{background:white;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.05);padding:22px;position:relative;}
+.profile-card .avatar-lg{width:100px;height:100px;border-radius:16px;background:linear-gradient(135deg,#0d0a4c,#4a4ad8);color:white;font-size:36px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.profile-card h2{font-size:20px;margin-bottom:4px;}
+.profile-card p{color:#666;font-size:14px;margin-bottom:8px;}
+.profile-card .stat{margin:10px 0;padding:8px 0;border-top:1px solid #eee;}
+.stats-row{display:flex;justify-content:space-between;gap:12px;margin-bottom:20px;}
+.stat-box{flex:1;background:rgba(13,10,76,0.05);padding:18px;border-radius:12px;text-align:center;}
+.stat-box h3{font-size:18px;margin-bottom:6px;}
+.stat-box p{color:#444;font-weight:600;}
+.payments-section h3{margin-bottom:8px;}
+.pay-list{list-style:none;margin-top:12px;}
+.pay-list li{border:1px solid #eee;border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;background:white;}
+.pay-left{flex:1;}
+.pay-plan{font-weight:700;font-size:15px;}
+.pay-desc{font-size:13px;color:#777;}
+.pay-right{text-align:right;}
+.pay-amt{font-weight:700;}
+.pay-status{padding:5px 10px;border-radius:8px;font-size:13px;margin-top:4px;display:inline-block;}
+.pay-status.active{background:#e7fcee;color:#0b7b3a;}
+.pay-status.pending{background:#fff4e0;color:#a16d00;}
+.actions-row{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;}
+.actions-row button{background:#0d0a4c;color:white;border:none;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer;}
+.actions-row button:hover{background:#2b2b9a;}
+.footer{text-align:center;margin-top:30px;color:#666;font-size:13px;}
+/* Modal */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:999;}
+.modal.active{display:flex;}
+.modal .box{background:white;width:420px;border-radius:16px;padding:26px;box-shadow:0 12px 25px rgba(0,0,0,0.2);position:relative;animation:fadeIn .3s ease;}
+.modal h3{margin-bottom:14px;font-size:20px;color:#0d0a4c;}
+.modal .field{margin:12px 0;}
+.modal label{display:block;font-size:13px;color:#444;margin-bottom:4px;}
+.modal input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;font-family:inherit;}
+.modal input:focus{border-color:#0d0a4c;outline:none;}
+.modal .btn-row{margin-top:18px;text-align:right;display:flex;gap:10px;justify-content:flex-end;}
+.modal button{cursor:pointer;}
+.modal .close-btn{position:absolute;top:14px;right:14px;background:transparent;border:none;color:#888;font-size:18px;cursor:pointer;}
+.modal .close-btn:hover{color:#000;}
+.modal .avatar-preview{width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,#0d0a4c,#4a4ad8);color:white;font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:10px auto;}
+.modal .subtext{font-size:12px;color:#777;margin-bottom:8px;text-align:center;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr;}}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
+.card,.stat-box,li{animation:fadeInUp .5s ease;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Gap Web Dashboard</h1>
+  <div class="top-controls">
+    <div class="user-chip" onclick="openProfile()">
+      <span class="avatar" id="topAvatar">G</span>
+      <span id="topName">User</span>
+    </div>
+    <button class="btn-main" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="dashboard-grid">
+    <div class="card profile-card">
+      <div class="avatar-lg" id="profAvatar">G</div>
+      <h2 id="profName">User Name</h2>
+      <p id="profEmail">email@example.com</p>
+      <div class="stat"><strong>Phone:</strong> <span id="profPhone">-</span></div>
+      <div class="stat"><strong>Joined:</strong> <span id="profSince">-</span></div>
+    </div>
+
+    <div class="card">
+      <div class="stats-row">
+        <div class="stat-box"><h3>Total Orders</h3><p id="statOrders">0</p></div>
+        <div class="stat-box"><h3>Active Plans</h3><p id="statActive">0</p></div>
+        <div class="stat-box"><h3>Pending</h3><p id="statPending">0</p></div>
+      </div>
+
+      <div class="payments-section">
+        <h3>Your Purchases</h3>
+        <p style="font-size:13px;color:#666;">Fetched directly from Firebase Realtime Database.</p>
+        <ul id="payList" class="pay-list"></ul>
+      </div>
+
+      <div class="actions-row">
+        <button onclick="refreshData()">🔄 Refresh</button>
+        <button onclick="downloadCSV()">📦 Download CSV</button>
+        <button onclick="contactSupport()">💬 Contact Support</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">© 2025 Gap Web — Empowering your online presence</div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal" id="profileModal">
+  <div class="box">
+    <button class="close-btn" onclick="closeProfile()">✕</button>
+    <div class="avatar-preview" id="editAvatar">G</div>
+    <div class="subtext">Update your profile details below</div>
+    <div class="field"><label>Name</label><input id="editName"></div>
+    <div class="field"><label>Phone</label><input id="editPhone"></div>
+    <div class="field"><label>New Password</label><input type="password" id="editPass" placeholder="Leave blank to keep current"></div>
+    <div class="btn-row">
+      <button onclick="closeProfile()">Cancel</button>
+      <button class="btn-main" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig={apiKey:"AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",authDomain:"payments-5802a.firebaseapp.com",databaseURL:"https://payments-5802a-default-rtdb.firebaseio.com",projectId:"payments-5802a",storageBucket:"payments-5802a.firebasestorage.app",messagingSenderId:"467232488937",appId:"1:467232488937:web:79680dbf4fed78a3201f78"};
+const app=initializeApp(firebaseConfig);const db=getDatabase(app);
+
+const $=id=>document.getElementById(id);
+const key="gapweb_user";
+let user=null;
+try{user=JSON.parse(sessionStorage.getItem(key));}catch(e){user=null;}
+if(!user)window.location.href="login.html";
+setup();
+
+function setup(){
+ $("topName").textContent=user.name;
+ $("profName").textContent=user.name;
+ $("profEmail").textContent=user.email;
+ $("profPhone").textContent=user.phone||"-";
+ $("profSince").textContent=user.createdAt?new Date(user.createdAt).toLocaleString():"-";
+ const a=user.name?user.name.charAt(0).toUpperCase():"G";
+ $("profAvatar").textContent=a;$("topAvatar").textContent=a;$("editAvatar").textContent=a;
+ loadPayments(user.email);
+}
+
+async function loadPayments(email){
+ const payList=$("payList");payList.innerHTML="<li>Loading...</li>";
+ try{
+  const snap=await get(ref(db,"payments"));
+  if(!snap.exists()){payList.innerHTML="<li>No payments yet.</li>";return;}
+  const all=snap.val();let arr=[];
+  for(const k in all){const p=all[k];if(p.email&&p.email.toLowerCase()==email.toLowerCase())arr.push(p);}
+  if(!arr.length){payList.innerHTML="<li>No records found.</li>";return;}
+  arr.sort((a,b)=>(b.timestamp||"").localeCompare(a.timestamp||""));
+  let act=0,pend=0;
+  payList.innerHTML="";
+  for(const p of arr){
+    if(p.status&&p.status.toLowerCase()=="active")act++;else pend++;
+    const li=document.createElement("li");
+    li.innerHTML=`
+      <div class="pay-left">
+        <div class="pay-plan">${p.plan||"Plan"}</div>
+        <div class="pay-desc">${p.websiteType||"-"} | ${new Date(p.timestamp||Date.now()).toLocaleString()}</div>
+      </div>
+      <div class="pay-right">
+        <div class="pay-amt">₹${p.price||"0"}</div>
+        <span class="pay-status ${p.status&&p.status.toLowerCase()=="active"?"active":"pending"}">${p.status||"pending"}</span>
+      </div>`;
+    payList.appendChild(li);
+  }
+  $("statOrders").textContent=arr.length;
+  $("statActive").textContent=act;
+  $("statPending").textContent=pend;
+ }catch(e){payList.innerHTML="<li>Error loading data.</li>";console.error(e);}
+}
+
+window.refreshData=function(){loadPayments(user.email);};
+
+window.downloadCSV=async function(){
+ const snap=await get(ref(db,"payments"));
+ if(!snap.exists())return alert("No data found");
+ const all=snap.val();let rows=[["payment_id","email","plan","price","status","timestamp","websiteType"]];
+ for(const k in all){
+   const p=all[k];
+   if(p.email&&p.email.toLowerCase()==user.email.toLowerCase())
+    rows.push([p.payment_id||"",p.email||"",p.plan||"",p.price||"",p.status||"",p.timestamp||"",p.websiteType||""]);
+ }
+ if(rows.length<=1)return alert("No records for you");
+ const csv=rows.map(r=>r.map(c=>`"${(c||"").replace(/"/g,'""')}"`).join(",")).join("\n");
+ const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");a.href=url;a.download="gapweb_invoices.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+};
+
+window.contactSupport=function(){
+ const msg=encodeURIComponent(`Hello Gap Web, I need help with my account (${user.email}).`);
+ window.open(`https://wa.me/919988770000?text=${msg}`,"_blank");
+};
+
+window.openProfile=function(){
+ $("editName").value=user.name||"";
+ $("editPhone").value=user.phone||"";
+ $("editPass").value="";
+ $("profileModal").classList.add("active");
+};
+
+window.closeProfile=function(){$("profileModal").classList.remove("active");};
+
+window.saveProfile=async function(){
+ const n=$("editName").value.trim();
+ const ph=$("editPhone").value.trim();
+ const pw=$("editPass").value.trim();
+ if(!n||!ph)return alert("Please fill all fields");
+ try{
+  const uRef=ref(db,"users/"+user._key);
+  const data={name:n,phone:ph};
+  if(pw){if(pw.length<6)return alert("Password too short");data.password=pw;}
+  await update(uRef,data);
+  user.name=n;user.phone=ph;if(pw)user.password=pw;
+  sessionStorage.setItem(key,JSON.stringify(user));
+  closeProfile();setup();
+  alert("Profile updated successfully!");
+ }catch(e){console.error(e);alert("Update failed");}
+};
+
+window.logout=function(){sessionStorage.removeItem(key);window.location.href="login.html";}
+</script>
+</body>
+</html>
