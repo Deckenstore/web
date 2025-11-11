@@ -1,237 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gap Web • Client Dashboard</title>
-<link rel="icon" href="favicon.ico">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard | Firebase Analytics</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;transition:0.3s all ease;}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#eef1f8,#dde4fb);min-height:100vh;color:#222;overflow-x:hidden;}
-header{background:#0d0a4c;color:white;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 6px 25px rgba(0,0,0,0.15);}
-header h1{font-size:22px;font-weight:700;}
-header .top-controls{display:flex;align-items:center;gap:14px;}
-header .user-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);padding:6px 14px;border-radius:50px;cursor:pointer;}
-header .user-chip:hover{background:rgba(255,255,255,0.3);}
-header .user-chip span.avatar{background:#fff;color:#0d0a4c;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;}
-header button{border:none;border-radius:8px;padding:8px 14px;font-weight:600;cursor:pointer;}
-.btn-main{background:#fff;color:#0d0a4c;}
-.btn-main:hover{background:#f1f1f1;}
-.container{max-width:1200px;margin:30px auto;padding:20px;}
-.dashboard-grid{display:grid;grid-template-columns:300px 1fr;gap:24px;}
-.card{background:white;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.05);padding:22px;position:relative;}
-.profile-card .avatar-lg{width:100px;height:100px;border-radius:16px;background:linear-gradient(135deg,#0d0a4c,#4a4ad8);color:white;font-size:36px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
-.profile-card h2{font-size:20px;margin-bottom:4px;}
-.profile-card p{color:#666;font-size:14px;margin-bottom:8px;}
-.profile-card .stat{margin:10px 0;padding:8px 0;border-top:1px solid #eee;}
-.stats-row{display:flex;justify-content:space-between;gap:12px;margin-bottom:20px;}
-.stat-box{flex:1;background:rgba(13,10,76,0.05);padding:18px;border-radius:12px;text-align:center;}
-.stat-box h3{font-size:18px;margin-bottom:6px;}
-.stat-box p{color:#444;font-weight:600;}
-.payments-section h3{margin-bottom:8px;}
-.pay-list{list-style:none;margin-top:12px;}
-.pay-list li{border:1px solid #eee;border-radius:10px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;background:white;}
-.pay-left{flex:1;}
-.pay-plan{font-weight:700;font-size:15px;}
-.pay-desc{font-size:13px;color:#777;}
-.pay-right{text-align:right;}
-.pay-amt{font-weight:700;}
-.pay-status{padding:5px 10px;border-radius:8px;font-size:13px;margin-top:4px;display:inline-block;}
-.pay-status.active{background:#e7fcee;color:#0b7b3a;}
-.pay-status.pending{background:#fff4e0;color:#a16d00;}
-.actions-row{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;}
-.actions-row button{background:#0d0a4c;color:white;border:none;border-radius:8px;padding:10px 14px;font-weight:600;cursor:pointer;}
-.actions-row button:hover{background:#2b2b9a;}
-.footer{text-align:center;margin-top:30px;color:#666;font-size:13px;}
-/* Modal */
-.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:999;}
-.modal.active{display:flex;}
-.modal .box{background:white;width:420px;border-radius:16px;padding:26px;box-shadow:0 12px 25px rgba(0,0,0,0.2);position:relative;animation:fadeIn .3s ease;}
-.modal h3{margin-bottom:14px;font-size:20px;color:#0d0a4c;}
-.modal .field{margin:12px 0;}
-.modal label{display:block;font-size:13px;color:#444;margin-bottom:4px;}
-.modal input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;font-family:inherit;}
-.modal input:focus{border-color:#0d0a4c;outline:none;}
-.modal .btn-row{margin-top:18px;text-align:right;display:flex;gap:10px;justify-content:flex-end;}
-.modal button{cursor:pointer;}
-.modal .close-btn{position:absolute;top:14px;right:14px;background:transparent;border:none;color:#888;font-size:18px;cursor:pointer;}
-.modal .close-btn:hover{color:#000;}
-.modal .avatar-preview{width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,#0d0a4c,#4a4ad8);color:white;font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:10px auto;}
-.modal .subtext{font-size:12px;color:#777;margin-bottom:8px;text-align:center;}
-@keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
-@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr;}}
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}
-.card,.stat-box,li{animation:fadeInUp .5s ease;}
+/* ===================================================
+   GLOBAL
+=================================================== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{display:flex;background:#0d0f11;color:#e6eef5;height:100vh;overflow:hidden}
+button{cursor:pointer;border:none}
+
+/* ===================================================
+   LOGIN PAGE
+=================================================== */
+#loginPage{position:absolute;top:0;left:0;width:100%;height:100%;background:#0d0f11;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:10}
+#loginPage input{padding:12px 15px;margin:8px 0;border-radius:8px;border:none;width:250px}
+#loginPage button{padding:10px 20px;background:#6366f1;color:#fff;border-radius:8px;margin-top:10px;}
+
+/* ===================================================
+   SIDEBAR
+=================================================== */
+.sidebar{
+  width:260px;background:#111315;padding:30px 18px;
+  display:flex;flex-direction:column;border-right:1px solid #1a1c1e
+}
+.sidebar h2{font-size:22px;margin-bottom:25px;font-weight:600;color:#fff}
+.nav-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.nav-links button{
+  padding:14px 18px;border-radius:10px;background:#1a1d20;color:#cfd6dc;
+  font-size:15px;text-align:left;transition:.3s
+}
+.nav-links button.active{background:#6366f1;color:#fff}
+.nav-links button:hover:not(.active){background:#22252a}
+
+/* ===================================================
+   CONTENT AREA
+=================================================== */
+.content{flex:1;padding:35px 40px;overflow-y:auto}
+.header{display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:28px}
+.search input{
+  padding:10px 18px;border-radius:8px;border:none;width:270px;
+  background:#1c1f22;color:#fff
+}
+.export-btn{padding:10px 22px;background:#00b894;color:#fff;border-radius:8px;font-size:14px}
+
+/* ===================================================
+   STATS CARDS
+=================================================== */
+.stat-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;margin:25px 0}
+.stat-card{
+  background:#16191d;padding:22px;border-radius:14px;border:1px solid #23272b;
+  transition:.3s
+}
+.stat-card:hover{transform:translateY(-5px)}
+.stat-title{font-size:15px;color:#b6bcc4;margin-bottom:10px}
+.stat-value{font-size:24px;font-weight:600;margin-bottom:6px}
+.stat-sub{font-size:13px;color:#7a7f85}
+
+/* ===================================================
+   CHART AREA
+=================================================== */
+.chart-area{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.chart-box{
+  background:#16191d;border:1px solid #22252a;border-radius:12px;padding:20px
+}
+.chart-box h3{margin-bottom:15px;font-size:18px}
+
+/* ===================================================
+   PAYMENT CARDS
+=================================================== */
+#paymentsSection{margin-top:30px}
+.card-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;margin-top:20px}
+.card{
+  background:#16191d;padding:18px;border-radius:12px;border:1px solid #23272b;
+  animation:fade .35s ease-in
+}
+@keyframes fade{from{opacity:.3;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.card p{margin-bottom:6px;font-size:14px}
+.status-btns{display:flex;gap:10px;margin-top:12px}
+.btn{padding:8px 12px;border-radius:8px;color:#fff;font-size:13px;width:100%}
+.pending{background:#feb72b}.completed{background:#2ecc71}.delete{background:#ff4757}
+
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Gap Web Dashboard</h1>
-  <div class="top-controls">
-    <div class="user-chip" onclick="openProfile()">
-      <span class="avatar" id="topAvatar">G</span>
-      <span id="topName">User</span>
-    </div>
-    <button class="btn-main" onclick="logout()">Logout</button>
-  </div>
-</header>
-
-<div class="container">
-  <div class="dashboard-grid">
-    <div class="card profile-card">
-      <div class="avatar-lg" id="profAvatar">G</div>
-      <h2 id="profName">User Name</h2>
-      <p id="profEmail">email@example.com</p>
-      <div class="stat"><strong>Phone:</strong> <span id="profPhone">-</span></div>
-      <div class="stat"><strong>Joined:</strong> <span id="profSince">-</span></div>
-    </div>
-
-    <div class="card">
-      <div class="stats-row">
-        <div class="stat-box"><h3>Total Orders</h3><p id="statOrders">0</p></div>
-        <div class="stat-box"><h3>Active Plans</h3><p id="statActive">0</p></div>
-        <div class="stat-box"><h3>Pending</h3><p id="statPending">0</p></div>
-      </div>
-
-      <div class="payments-section">
-        <h3>Your Purchases</h3>
-        <p style="font-size:13px;color:#666;">Fetched directly from Firebase Realtime Database.</p>
-        <ul id="payList" class="pay-list"></ul>
-      </div>
-
-      <div class="actions-row">
-        <button onclick="refreshData()">🔄 Refresh</button>
-        <button onclick="downloadCSV()">📦 Download CSV</button>
-        <button onclick="contactSupport()">💬 Contact Support</button>
-      </div>
-    </div>
-  </div>
-  <div class="footer">© 2025 Gap Web — Empowering your online presence</div>
+<!-- ======================= LOGIN PAGE ======================= -->
+<div id="loginPage">
+  <h2>Admin Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email" />
+  <input type="password" id="loginPass" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <p id="loginError" style="color:red;margin-top:10px;"></p>
 </div>
 
-<!-- Profile Modal -->
-<div class="modal" id="profileModal">
-  <div class="box">
-    <button class="close-btn" onclick="closeProfile()">✕</button>
-    <div class="avatar-preview" id="editAvatar">G</div>
-    <div class="subtext">Update your profile details below</div>
-    <div class="field"><label>Name</label><input id="editName"></div>
-    <div class="field"><label>Phone</label><input id="editPhone"></div>
-    <div class="field"><label>New Password</label><input type="password" id="editPass" placeholder="Leave blank to keep current"></div>
-    <div class="btn-row">
-      <button onclick="closeProfile()">Cancel</button>
-      <button class="btn-main" onclick="saveProfile()">Save Changes</button>
-    </div>
-  </div>
+<!-- ===================================================
+   SIDEBAR
+=================================================== -->
+<aside class="sidebar">
+<h2>Admin Panel</h2>
+<ul class="nav-links">
+<li><button data-section="dashboard" class="active">Dashboard</button></li>
+<li><button data-section="new">New Payments</button></li>
+<li><button data-section="pending">Pending</button></li>
+<li><button data-section="completed">Completed</button></li>
+<li><button onclick="logout()" style="margin-top:10px;background:#ff4757;">Logout</button></li>
+</ul>
+</aside>
+
+<!-- ===================================================
+   MAIN CONTENT
+=================================================== -->
+<section class="content">
+
+<div class="header">
+<h1 id="sectionTitle">Dashboard</h1>
+<div class="search"><input type="text" id="searchInput" placeholder="Search payments..."></div>
+<button class="export-btn" id="exportCSV">Export CSV</button>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<!-- ========= DASHBOARD SECTION ========= -->
+<div id="dashboardSection">
+<div class="stat-container">
+<div class="stat-card"><p class="stat-title">Total Revenue</p><h2 class="stat-value" id="statRevenue">₹0</h2><p class="stat-sub">This month</p></div>
+<div class="stat-card"><p class="stat-title">Total Payments</p><h2 class="stat-value" id="statCount">0</h2><p class="stat-sub">All time</p></div>
+<div class="stat-card"><p class="stat-title">Completed Conversions</p><h2 class="stat-value" id="statCompleted">0</h2><p class="stat-sub">% Conversion Rate</p></div>
+</div>
 
-const firebaseConfig={apiKey:"AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",authDomain:"payments-5802a.firebaseapp.com",databaseURL:"https://payments-5802a-default-rtdb.firebaseio.com",projectId:"payments-5802a",storageBucket:"payments-5802a.firebasestorage.app",messagingSenderId:"467232488937",appId:"1:467232488937:web:79680dbf4fed78a3201f78"};
-const app=initializeApp(firebaseConfig);const db=getDatabase(app);
+<div class="chart-area">
+<div class="chart-box"><h3>Revenue Trends</h3><canvas id="revenueChart"></canvas></div>
+<div class="chart-box"><h3>Payment Status Distribution</h3><canvas id="statusChart"></canvas></div>
+</div>
+</div>
 
-const $=id=>document.getElementById(id);
-const key="gapweb_user";
-let user=null;
-try{user=JSON.parse(sessionStorage.getItem(key));}catch(e){user=null;}
-if(!user)window.location.href="login.html";
-setup();
+<!-- ========= PAYMENT SECTION ========= -->
+<div id="paymentsSection" style="display:none">
+<h2 class="title"></h2>
+<div class="card-container" id="paymentCards"></div>
+</div>
 
-function setup(){
- $("topName").textContent=user.name;
- $("profName").textContent=user.name;
- $("profEmail").textContent=user.email;
- $("profPhone").textContent=user.phone||"-";
- $("profSince").textContent=user.createdAt?new Date(user.createdAt).toLocaleString():"-";
- const a=user.name?user.name.charAt(0).toUpperCase():"G";
- $("profAvatar").textContent=a;$("topAvatar").textContent=a;$("editAvatar").textContent=a;
- loadPayments(user.email);
-}
+</section>
 
-async function loadPayments(email){
- const payList=$("payList");payList.innerHTML="<li>Loading...</li>";
- try{
-  const snap=await get(ref(db,"payments"));
-  if(!snap.exists()){payList.innerHTML="<li>No payments yet.</li>";return;}
-  const all=snap.val();let arr=[];
-  for(const k in all){const p=all[k];if(p.email&&p.email.toLowerCase()==email.toLowerCase())arr.push(p);}
-  if(!arr.length){payList.innerHTML="<li>No records found.</li>";return;}
-  arr.sort((a,b)=>(b.timestamp||"").localeCompare(a.timestamp||""));
-  let act=0,pend=0;
-  payList.innerHTML="";
-  for(const p of arr){
-    if(p.status&&p.status.toLowerCase()=="active")act++;else pend++;
-    const li=document.createElement("li");
-    li.innerHTML=`
-      <div class="pay-left">
-        <div class="pay-plan">${p.plan||"Plan"}</div>
-        <div class="pay-desc">${p.websiteType||"-"} | ${new Date(p.timestamp||Date.now()).toLocaleString()}</div>
-      </div>
-      <div class="pay-right">
-        <div class="pay-amt">₹${p.price||"0"}</div>
-        <span class="pay-status ${p.status&&p.status.toLowerCase()=="active"?"active":"pending"}">${p.status||"pending"}</span>
-      </div>`;
-    payList.appendChild(li);
+<!-- ===================================================
+   FIREBASE
+=================================================== -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script>
+/* ======================= FIREBASE CONFIG ======================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",
+  authDomain: "payments-5802a.firebaseapp.com",
+  databaseURL: "https://payments-5802a-default-rtdb.firebaseio.com",
+  projectId: "payments-5802a",
+  storageBucket: "payments-5802a.appspot.com",
+  messagingSenderId: "467232488937",
+  appId: "1:467232488937:web:79680dbf4fed78a3201f78",
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database().ref("payments");
+
+/* ======================= LOGIN CHECK ======================= */
+const loginPage = document.getElementById("loginPage");
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    loginPage.style.display = "none"; // hide login
+    document.querySelector(".sidebar").style.display = "flex";
+    document.querySelector(".content").style.display = "block";
+  } else {
+    loginPage.style.display = "flex"; // show login
+    document.querySelector(".sidebar").style.display = "none";
+    document.querySelector(".content").style.display = "none";
   }
-  $("statOrders").textContent=arr.length;
-  $("statActive").textContent=act;
-  $("statPending").textContent=pend;
- }catch(e){payList.innerHTML="<li>Error loading data.</li>";console.error(e);}
+});
+
+/* ======================= LOGIN FUNCTION ======================= */
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPass").value;
+  const error = document.getElementById("loginError");
+  error.textContent = "";
+
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(err => { error.textContent = err.message; });
 }
 
-window.refreshData=function(){loadPayments(user.email);};
+/* ======================= LOGOUT ======================= */
+function logout() {
+  firebase.auth().signOut();
+}
 
-window.downloadCSV=async function(){
- const snap=await get(ref(db,"payments"));
- if(!snap.exists())return alert("No data found");
- const all=snap.val();let rows=[["payment_id","email","plan","price","status","timestamp","websiteType"]];
- for(const k in all){
-   const p=all[k];
-   if(p.email&&p.email.toLowerCase()==user.email.toLowerCase())
-    rows.push([p.payment_id||"",p.email||"",p.plan||"",p.price||"",p.status||"",p.timestamp||"",p.websiteType||""]);
- }
- if(rows.length<=1)return alert("No records for you");
- const csv=rows.map(r=>r.map(c=>`"${(c||"").replace(/"/g,'""')}"`).join(",")).join("\n");
- const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);
- const a=document.createElement("a");a.href=url;a.download="gapweb_invoices.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-};
+/* ======================= EXISTING DASHBOARD CODE ======================= */
+let paymentData = {};
+let activeSection = "dashboard";
 
-window.contactSupport=function(){
- const msg=encodeURIComponent(`Hello Gap Web, I need help with my account (${user.email}).`);
- window.open(`https://wa.me/919988770000?text=${msg}`,"_blank");
-};
+document.querySelectorAll('.nav-links button').forEach(btn =>
+  btn.addEventListener('click', () => switchSection(btn.dataset.section))
+);
 
-window.openProfile=function(){
- $("editName").value=user.name||"";
- $("editPhone").value=user.phone||"";
- $("editPass").value="";
- $("profileModal").classList.add("active");
-};
+function switchSection(section) {
+  activeSection = section.toLowerCase();
+  document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove("active"));
+  document.querySelector(`[data-section="${section}"]`)?.classList.add("active");
 
-window.closeProfile=function(){$("profileModal").classList.remove("active");};
+  document.getElementById("dashboardSection").style.display =
+    section === "dashboard" ? "block" : "none";
 
-window.saveProfile=async function(){
- const n=$("editName").value.trim();
- const ph=$("editPhone").value.trim();
- const pw=$("editPass").value.trim();
- if(!n||!ph)return alert("Please fill all fields");
- try{
-  const uRef=ref(db,"users/"+user._key);
-  const data={name:n,phone:ph};
-  if(pw){if(pw.length<6)return alert("Password too short");data.password=pw;}
-  await update(uRef,data);
-  user.name=n;user.phone=ph;if(pw)user.password=pw;
-  sessionStorage.setItem(key,JSON.stringify(user));
-  closeProfile();setup();
-  alert("Profile updated successfully!");
- }catch(e){console.error(e);alert("Update failed");}
-};
+  document.getElementById("paymentsSection").style.display =
+    section !== "dashboard" ? "block" : "none";
 
-window.logout=function(){sessionStorage.removeItem(key);window.location.href="login.html";}
+  document.getElementById("sectionTitle").textContent =
+    section === "dashboard" ? "Dashboard" : section.toUpperCase() + " Payments";
+
+  if (section !== "dashboard") renderPayments();
+}
+
+db.on("value", snap => {
+  paymentData = snap.val() || {};
+  updateDashboard();
+  renderPayments();
+});
+
+function updateDashboard() {
+  let total = 0, count = 0, completed = 0;
+
+  Object.values(paymentData).forEach(p => {
+    count++;
+    if ((p.status || "new").toLowerCase() === "completed") completed++;
+    total += Number(p.price || 0);
+  });
+
+  document.getElementById("statRevenue").textContent = "₹" + total;
+  document.getElementById("statCount").textContent = count;
+  document.getElementById("statCompleted").textContent =
+    ((completed / count) * 100 || 0).toFixed(1) + "%";
+
+  drawCharts(total, completed, count - completed);
+}
+
+let revenueChart, statusChart;
+
+function drawCharts(total, comp, pending) {
+  if (revenueChart) revenueChart.destroy();
+  if (statusChart) statusChart.destroy();
+
+  revenueChart = new Chart(document.getElementById("revenueChart"), {
+    type: "line",
+    data: { labels: ["Week1","Week2","Week3","Week4"], datasets:[{data:[total*.2,total*.4,total*.7,total],borderWidth:3}]},
+    options:{plugins:{legend:{display:false}}}
+  });
+
+  statusChart = new Chart(document.getElementById("statusChart"),{
+    type:"pie",
+    data:{labels:["Completed","Pending"],datasets:[{data:[comp,pending]}]}
+  });
+}
+
+function renderPayments() {
+  const container = document.getElementById("paymentCards");
+  container.innerHTML = "";
+  Object.keys(paymentData).forEach(key => {
+    const p = paymentData[key];
+    let status = (p.status || "new").toLowerCase();
+    if (status !== activeSection) return;
+
+    const card = document.createElement("div");
+    card.className="card";
+    card.innerHTML = `
+      <p><strong>Name:</strong> ${p.name}</p>
+      <p><strong>Email:</strong> ${p.email}</p>
+      <p><strong>Whatsapp:</strong> ${p.whatsapp}</p>
+      <p><strong>Plan:</strong> ${p.plan}</p>
+      <p><strong>Price:</strong> ₹${p.price}</p>
+      <p><strong>Payment ID:</strong> ${p.payment_id}</p>
+      <div class="status-btns">
+        <button class="btn pending" onclick="updateStatus('${key}','pending')">Pending</button>
+        <button class="btn completed" onclick="updateStatus('${key}','completed')">Complete</button>
+        <button class="btn delete" onclick="deleteEntry('${key}')">Delete</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function updateStatus(id,status){db.child(id).update({status});}
+function deleteEntry(id){if(confirm("Delete this entry?")) db.child(id).remove();}
+document.getElementById("exportCSV").addEventListener("click",()=>{
+  let csv="Name,Email,Plan,Price,PaymentID,Status\n";
+  Object.values(paymentData).forEach(p=>csv+=`${p.name},${p.email},${p.plan},${p.price},${p.payment_id},${p.status}\n`);
+  const a=document.createElement("a");const blob=new Blob([csv],{type:"text/csv"});
+  a.href=URL.createObjectURL(blob);a.download="payments.csv";a.click();
+});
 </script>
+
 </body>
 </html>
