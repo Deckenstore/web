@@ -7,102 +7,67 @@
 <link rel="icon" href="favicon.ico" />
 <style>
 /* =========================
-   Gap Web — Auth Login
+   Gap Web — Login Styles
    ========================= */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-:root {
-  --primary: #00bfa6;      /* teal */
-  --muted: #6b7280;
-  --accent: #06c1b0;
-  --bg1: #031b1b;
-  --bg2: #042f2f;
+:root{
+  --primary:#0d0a4c;
+  --muted:#6b7280;
+  --accent:#0d6efd;
 }
-
-* { box-sizing: border-box }
-html, body { height: 100% }
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 70%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  color: white;
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(180deg,#07102a 0%, #0d0a4c 60%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  color:white;
 }
 
 .wrapper {
-  width: 960px;
-  max-width: 95%;
-  display: grid;
+  width:960px;
+  max-width:95%;
+  display:grid;
   grid-template-columns: 420px 1fr;
-  gap: 26px;
+  gap:26px;
 }
 
 /* left panel */
 .left {
-  background: rgba(255,255,255,0.05);
-  padding: 28px;
-  border-radius: 14px;
-  color: #fff;
-  min-height: 360px;
+  background: rgba(255,255,255,0.03);
+  padding:28px;
+  border-radius:14px;
+  color:#fff;
+  min-height:360px;
 }
-.brand { font-weight: 700; font-size: 24px; margin-bottom: 6px }
-.left h1 { font-size: 20px; margin: 8px 0 12px }
-.left p { opacity: 0.9; line-height: 1.5 }
+.brand {font-weight:700;font-size:24px;margin-bottom:6px}
+.left h1{font-size:20px;margin:8px 0 12px}
+.left p{opacity:0.9;line-height:1.5}
 
 /* right: form card */
 .card {
-  background: #fff;
-  color: #0b1220;
-  border-radius: 14px;
-  padding: 22px;
+  background:#fff;
+  color:#0b1220;
+  border-radius:14px;
+  padding:22px;
   box-shadow: 0 12px 40px rgba(2,6,23,0.45);
 }
-.card h2 { margin: 0 0 6px; color: var(--primary) }
-.card .muted { color: var(--muted); font-size: 14px; margin-bottom: 12px }
+.card h2{margin:0 0 6px;color:var(--primary)}
+.card .muted{color:var(--muted);font-size:14px;margin-bottom:12px}
 
-.input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #e7e9ee;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-.btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.btn:hover { background: var(--accent); }
-
-.link {
-  display: block;
-  text-align: center;
-  margin-top: 12px;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-}
-.msg {
-  margin-top: 10px;
-  color: #888;
-  font-size: 14px;
-  text-align: center;
-}
+.input { width:100%; padding:12px;border-radius:10px;border:1px solid #e7e9ee;margin-bottom:10px;font-size:15px}
+.btn { width:100%; padding:12px;border-radius:10px;border:none;background:var(--primary);color:#fff;font-weight:600;cursor:pointer }
+.link { display:block; text-align:center; margin-top:12px; color:var(--primary); text-decoration:none; font-weight:600 }
+.msg { margin-top:10px;color:#888;font-size:14px;text-align:center }
 
 /* responsive */
 @media(max-width:880px){
-  .wrapper { grid-template-columns: 1fr; }
-  .left { order: 2; }
+  .wrapper{ grid-template-columns: 1fr; }
+  .left{ order:2 }
 }
 </style>
 </head>
@@ -112,16 +77,13 @@ body {
   <div class="left">
     <div class="brand">Gap Web</div>
     <h1>Welcome back</h1>
-    <p>Login with your email and password to access your Gap Web dashboard.  
-       Use the same email from signup to load your data automatically.</p>
-    <p style="margin-top:18px;font-size:13px;opacity:0.9">
-      Need help? Contact us at <b style="color:#fff">support@gapweb.site</b>
-    </p>
+    <p>Login with your email and password to access your Gap Web dashboard. If you purchased earlier, use same email so your plans appear automatically.</p>
+    <p style="margin-top:18px;font-size:13px;opacity:0.9">Need help? Contact us at <b style="color:#fff">support@gapweb.site</b></p>
   </div>
 
   <div class="card">
     <h2>Login to your account</h2>
-    <div class="muted">Enter your email and password</div>
+    <div class="muted">Enter email and password created during signup</div>
 
     <input id="email" class="input" type="email" placeholder="Email" />
     <input id="password" class="input" type="password" placeholder="Password" />
@@ -135,19 +97,17 @@ body {
 
 <script type="module">
 /*
-  Login using Firebase Authentication
-  -----------------------------------
-  - Uses signInWithEmailAndPassword
-  - On success: store user in sessionStorage
-  - Redirect to dashboard.html
+  Login (DB-based) — reads /users and finds matching email+password
+  On success -> stores full user object in sessionStorage then redirects to dashboard.html
 */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyANDJRYu6r-DczEoSscILdnCLpMCwX-UvM",
   authDomain: "payments-5802a.firebaseapp.com",
+  databaseURL: "https://payments-5802a-default-rtdb.firebaseio.com",
   projectId: "payments-5802a",
   storageBucket: "payments-5802a.firebasestorage.app",
   messagingSenderId: "467232488937",
@@ -155,16 +115,16 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const db = getDatabase(app);
 
 const _ = id => document.getElementById(id);
 const msg = _("msg");
 
+// helper
 function scrub(s){ return (s||"").toString().trim(); }
 
 window.loginUser = async function(){
   msg.textContent = "";
-  msg.style.color = "#888";
   const email = scrub(_("email").value).toLowerCase();
   const password = scrub(_("password").value);
 
@@ -173,29 +133,42 @@ window.loginUser = async function(){
     return;
   }
 
-  msg.textContent = "Signing in...";
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+  msg.textContent = "Checking account...";
+  try{
+    const usersSnap = await get(child(ref(db), "users"));
+    if(!usersSnap.exists()){
+      msg.textContent = "No users registered yet. Please sign up.";
+      return;
+    }
+    const users = usersSnap.val();
+    // find user by email
+    let found = null;
+    for(const k in users){
+      const u = users[k];
+      if(u.email && u.email.toLowerCase() === email && u.password === password){
+        // attach key for future updates
+        found = Object.assign({}, u);
+        found._key = k;
+        break;
+      }
+    }
 
-    // Save minimal data for session
-    sessionStorage.setItem("gapweb_user", JSON.stringify({
-      uid: user.uid,
-      email: user.email
-    }));
-
-    msg.style.color = "green";
-    msg.textContent = "Login successful! Redirecting...";
-    setTimeout(()=> window.location.href = "dashboard.html", 800);
-
+    if(found){
+      // store safe user object in session
+      sessionStorage.setItem("gapweb_user", JSON.stringify(found));
+      msg.style.color = "green";
+      msg.textContent = "Login successful. Redirecting to dashboard...";
+      setTimeout(()=> window.location.href = "dashboard.html", 700);
+    } else {
+      msg.style.color = "#ff6b6b";
+      msg.textContent = "Invalid email or password. Please try again.";
+    }
   } catch(err){
+    console.error(err);
     msg.style.color = "#ff6b6b";
-    if(err.code === "auth/user-not-found") msg.textContent = "No account found with this email.";
-    else if(err.code === "auth/wrong-password") msg.textContent = "Incorrect password.";
-    else msg.textContent = "Error: " + err.message;
+    msg.textContent = "Error during login: " + (err.message || err);
   }
 };
 </script>
-
 </body>
 </html>
