@@ -83,8 +83,7 @@ footer{background-color:var(--primary-color);color:white;text-align:center;paddi
         <p><strong>Description:</strong> <span id="cDescription"></span></p>
         <p><strong>Price: ₹</strong><span id="cPrice"></span></p>
       </div>
-      <button id="payRazorBtn" class="btn">Pay with Razorpay</button>
-      <button id="payPhonePeBtn" class="btn" style="background-color:#673ab7;">Pay with PhonePe</button>
+      <button id="payBtn" class="btn">Proceed to Payment</button>
     </div>
   </div>
 </section>
@@ -135,12 +134,11 @@ footer{background-color:var(--primary-color);color:white;text-align:center;paddi
     document.getElementById('cPrice').textContent = formData.price;
   }
 
-  // ✅ Razorpay Payment
-  document.getElementById('payRazorBtn').addEventListener('click', function() {
+  document.getElementById('payBtn').addEventListener('click', function() {
     if (!formData) return alert("No plan selected!");
 
     const options = {
-      key: "rzp_live_ReqJdHZeggzfS1",
+      key: "rzp_test_RdhlM3pIS4wdKW",
       amount: Number(formData.price) * 100,
       currency: "INR",
       name: "Gap Web",
@@ -158,9 +156,9 @@ footer{background-color:var(--primary-color);color:white;text-align:center;paddi
       },
       theme: { color: "#0d0a4c" },
 
+      // ✅ Finalized Handler (Firebase + Redirect to order.html)
       handler: async function(response){
         const paymentData = {
-          gateway: "Razorpay",
           payment_id: response.razorpay_payment_id,
           name: formData.fullName,
           email: formData.email,
@@ -172,56 +170,30 @@ footer{background-color:var(--primary-color);color:white;text-align:center;paddi
           timestamp: new Date().toISOString()
         };
 
-        const dbRef = window.ref(window.db, "payments");
-        const newRef = window.push(dbRef);
-        await window.set(newRef, paymentData);
-        sessionStorage.setItem("orderData", JSON.stringify(paymentData));
-        window.location.href = "https://www.gapweb.site/order.html";
+        try {
+          const dbRef = window.ref(window.db, "payments");
+          const newRef = window.push(dbRef);
+          await window.set(newRef, paymentData);
+
+          // ✅ Save to sessionStorage for thank-you page
+          sessionStorage.setItem("orderData", JSON.stringify(paymentData));
+
+          // ✅ Redirect to order page
+          window.location.href = "https://www.gapweb.site/order.html";
+        } catch (err) {
+          alert("Error saving payment: " + err);
+        }
+      },
+
+      modal: {
+        ondismiss: function(){
+          alert("Payment cancelled.");
+        }
       }
     };
 
     const rzp = new Razorpay(options);
     rzp.open();
-  });
-
-  // ✅ PhonePe Config (add your key here)
-  const phonepeConfig = {
-    merchantId: "SU2511121701202616360838",
-    apiKey: "e46fd4f8-7249-47dc-8eca-21cd768613ce" // ⚠️ only for testing
-  };
-
-  // ✅ PhonePe Payment
-  document.getElementById('payPhonePeBtn').addEventListener('click', async function() {
-    if (!formData) return alert("No plan selected!");
-
-    try {
-      const response = await fetch("https://api.gapweb.site/phonepe/initiate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          merchantId: phonepeConfig.merchantId,
-          apiKey: phonepeConfig.apiKey, // send for sandbox only
-          amount: Number(formData.price),
-          name: formData.fullName,
-          email: formData.email,
-          contact: formData.whatsappNumber,
-          plan: formData.plan,
-          websiteType: formData.websiteType,
-          description: formData.description
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      } else {
-        alert("Error initiating PhonePe payment.");
-      }
-
-    } catch (error) {
-      alert("PhonePe payment failed: " + error);
-    }
   });
 
   // Navbar toggle
