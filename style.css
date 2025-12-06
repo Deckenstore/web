@@ -535,4 +535,30 @@ footer {
   color: #555;
   line-height: 1.6;
 }
+.ad-banner {
+  width: 300px;
+  height: 250px;
+  margin: 30px auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.ad-banner:hover {
+  transform: translateY(-5px);
+}
+
+@media screen and (max-width: 400px) {
+  .ad-banner {
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
+    margin: 20px auto;
+  }
+}
 
