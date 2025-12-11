@@ -105,6 +105,9 @@
 
         <!-- ✅ SECOND IMAGE (foreground image) -->
         <img src="foreimage.png" alt="web development" class="hero-side-img">
+        <div class="container">
+            <a href="#services" class="btn">Explore Services</a>
+        </div>
 
     </div>
 </section>
@@ -134,11 +137,38 @@
             </div>
         </div>
     </section>
+    
+ <section id="about">
+        <div class="container">
+            <h2>Why Choose Gap Web?</h2>
+            <p class="subtitle">We are passionate about turning your digital dreams into reality with quality, speed, and affordability.</p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3><i class="fas fa-code"></i> Expert Developers</h3>
+                    <p>Our skilled team uses the latest technologies to build robust, scalable websites tailored to your needs.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fas fa-clock"></i> Fast Turnaround</h3>
+                    <p>Get your website live quickly without compromising on quality. We value your time and deliver on schedule.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fas fa-shield-alt"></i> Secure & Reliable</h3>
+                    <p>We prioritize security and ensure your website is protected against threats and performs reliably.</p>
+                </div>
+                <div class="about-card">
+                    <h3><i class="fas fa-headset"></i> 24/7 Support</h3>
+                    <p>Our support team is always ready to help. Reach out anytime for assistance or updates.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 <div class="container">
   <h2>Select Category</h2>
   <div class="category-bar">
     <button class="category-btn active" data-category="website">Website Plans</button>
-    <button class="category-btn" data-category="studio">Studio Plans</button>
+    <button class="category-btn" data-category="app-dev">App Dev Plans</button>
     <button class="category-btn" data-category="marketing">Marketing Plans</button>
   </div>
 
@@ -190,37 +220,53 @@
   </div>
 </div>
 
-<!-- Studio Plans -->
-<div class="plans-wrapper" id="studio">
+<!-- App Development Plans -->
+<div class="plans-wrapper" id="app-dev">
+  
   <div class="plan-card">
-    <h3>Basic</h3>
-    <p class="price">₹1500 <span>/project</span></p>
+    <h3>Basic App</h3>
+    <p class="price">₹1899 <span>/project</span></p>
     <ul>
-      <li>Photo Shoot</li>
-      <li>Basic Editing</li>
+      <li>Up to 3 App Screens (UI Design)</li>
+      <li>Basic App Functionality</li>
+      <li>Simple Navigation Setup</li>
+      <li>Basic API/Backend Integration (1 Endpoint)</li>
+      <li>Light Performance Optimization</li>
+      <li>1 Revision Included</li>
     </ul>
-    <a href="#contact" class="btn select-plan-btn" data-plan="basic-studio" data-price="1500">Choose Plan</a>
+    <a href="#contact" class="btn select-plan-btn" data-plan="basic-app" data-price="1500">Choose Plan</a>
   </div>
 
   <div class="plan-card">
-    <h3>Pro</h3>
-    <p class="price">₹2500 <span>/project</span></p>
+    <h3>Pro App</h3>
+    <p class="price">₹3499 <span>/project</span></p>
     <ul>
-      <li>Video + Editing</li>
-      <li>Color Grading</li>
+      <li>Up to 6–8 App Screens (UI/UX Design)</li>
+      <li>Advanced App Features (Forms, Logic, Validations)</li>
+      <li>Smooth Navigation + Transitions</li>
+      <li>Basic Database Setup (Local/firebase)</li>
+      <li>Performance Optimization + Bug Fixing</li>
+      <li>2 Revisions Included</li>
     </ul>
-    <a href="#contact" class="btn select-plan-btn" data-plan="pro-studio" data-price="2500">Choose Plan</a>
+    <a href="#contact" class="btn select-plan-btn" data-plan="pro-app" data-price="2500">Choose Plan</a>
   </div>
+
 </div>
+
 
 <!-- Marketing Plans -->
 <div class="plans-wrapper" id="marketing">
+
   <div class="plan-card">
     <h3>Social Media</h3>
     <p class="price">₹999 <span>/month</span></p>
     <ul>
       <li>4 Posts Weekly</li>
       <li>Hashtag Research</li>
+      <li>Content Strategy</li>
+      <li>Basic Page Optimization</li>
+      <li>Monthly Performance Report</li>
+      <li>1 Revision Included</li>
     </ul>
     <a href="#contact" class="btn select-plan-btn" data-plan="social-media" data-price="999">Choose Plan</a>
   </div>
@@ -229,12 +275,18 @@
     <h3>Paid Ads</h3>
     <p class="price">₹3000 <span>/month</span></p>
     <ul>
-      <li>Ad Campaigns</li>
-      <li>Campaigns</li>
+      <li>Ad Campaign Setup</li>
+      <li>Audience Targeting</li>
+      <li>Ad Optimization</li>
+      <li>Monthly Performance Analysis</li>
+      <li>Creative Guidance</li>
+      <li>2 Revisions Included</li>
     </ul>
     <a href="#contact" class="btn select-plan-btn" data-plan="paid-ads" data-price="3000">Choose Plan</a>
   </div>
+
 </div>
+
 
 
 </div>
@@ -293,6 +345,28 @@
                 </form>
             </div>
             <a href="#contact" class="btn get-form-btn" id="getFormBtn">Get a Form</a>
+        </div>
+    </section>
+
+
+<section id="testimonials">
+        <div class="container">
+            <h2>What Our Clients Say</h2>
+            <p class="subtitle">Don't just take our word for it - hear from our satisfied customers.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Gap Web delivered exactly what we needed. Our new website is fast, professional, and has boosted our business significantly."</p>
+                    <cite>- Rahul Sharma, Local Business Owner</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Amazing service! They built our e-commerce store quickly and it's performing great. Highly recommend!"</p>
+                    <cite>- Priya Patel, Online Retailer</cite>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Professional team with great communication. Our blog looks fantastic and loads super fast."</p>
+                    <cite>- Arjun Kumar, Blogger</cite>
+                </div>
+            </div>
         </div>
     </section>
 
