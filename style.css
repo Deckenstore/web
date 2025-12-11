@@ -45,7 +45,7 @@ body {
 .navbar {
     background-color: #010d19;
     color: white;
-    padding: 15px 0;
+    padding: 25px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -53,7 +53,7 @@ body {
 .navbar .logo {
     color: white;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 2.2rem;
     text-decoration: none;
 }
 .nav-links {
@@ -308,7 +308,8 @@ footer {
     background-color: #010d19;
     color: white;
     text-align: center;
-    padding: 30px 20px;
+    padding: 20px;
+    margin-bottom: 0;
 }
 
 /* WhatsApp Float */
@@ -420,6 +421,18 @@ footer {
     font-weight: 600;
 }
 
+/* Plans Wrapper */
+.plans-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+.plans-wrapper:not(.active) {
+    display: none;
+}
+
 /* ---------- Media Queries for Mobile ---------- */
 @media screen and (max-width: 768px) {
 
@@ -493,6 +506,12 @@ footer {
         padding: 30px 20px;
     }
 
+    /* Plans Wrapper */
+    .plans-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
     /* Footer */
     footer {
         padding: 20px 10px;
@@ -511,7 +530,6 @@ footer {
   max-width: 1000px;
   margin: auto;
 }
-
 .about-card {
   background: #fff;
   padding: 30px 20px;
@@ -534,6 +552,39 @@ footer {
   font-size: 1rem;
   color: #555;
   line-height: 1.6;
+}
+
+/* Testimonials */
+#testimonials {
+  background-color: var(--light-bg);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+.testimonial-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-10px);
+}
+.testimonial-card p {
+  font-style: italic;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+.testimonial-card cite {
+  font-weight: 600;
+  color: var(--primary-color);
 }
 .ad-banner {
   width: 300px;
@@ -561,4 +612,3 @@ footer {
     margin: 20px auto;
   }
 }
-
